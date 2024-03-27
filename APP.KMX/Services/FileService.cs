@@ -1,35 +1,33 @@
 ﻿using APP.KMX.Entities;
 using APP.KMX.Services.Interfaces;
+using APP.KMX.Utils;
+using Microsoft.AspNetCore.Hosting;
 
 namespace APP.KMX.Services
 {
     public class FileService : IFileService
     {
-        public async Task PostFileAsync(IFormFile fileData, FileType fileType)
+        public async Task ConvertFileAsync(IFormFile fileData, string uploadFolder)
         {
-            try
+            if (!Directory.Exists(uploadFolder))
             {
-                var fileDetails = new FileDetails()
-                {
-                    Id = 0,
-                    FileName = fileData.FileName,
-                    FileType = fileType,
-                };
-                
-                using(var stream = new MemoryStream())
-                {
-                    fileData.CopyTo(stream);
-                    fileDetails.FileData = stream.ToArray();
-                }
-                Console.WriteLine("Resultado: ", fileData);
-
+                Directory.CreateDirectory(uploadFolder);
             }
-            catch (Exception)
+
+
+            if (fileData == null || fileData.Length == 0)
+                return;
+
+            string fileName = Path.GetFileName(fileData.FileName);
+            string fileSavePath = Path.Combine(uploadFolder, fileName);
+
+            using (var stream = new FileStream(fileSavePath, FileMode.Create))
             {
-
-                throw;
+                await fileData.CopyToAsync(stream);
             }
-            throw new NotImplementedException();
+
+
+            FileConversion.ConvertXlsxToKML(fileSavePath);
         }
     }
 }

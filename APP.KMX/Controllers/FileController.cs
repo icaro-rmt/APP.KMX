@@ -1,40 +1,55 @@
 ﻿using APP.KMX.Entities;
+using APP.KMX.Models;
 using APP.KMX.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace APP.KMX.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class FileController: ControllerBase
+    public class FileController: Controller
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IFileService _fileService;
-        public FileController(IFileService fileService)
+      
+
+        public FileController(IWebHostEnvironment webHostEnvironment, IFileService fileService)
         {
+            _webHostEnvironment = webHostEnvironment;
             _fileService = fileService;
-            
         }
 
-        public async Task<ActionResult> PostSingleFile([FromForm] FileUploadModel fileDetails)
+        public IActionResult Index()
         {
-            if(fileDetails == null)
-            {
-                return BadRequest();
+            return View();
+        }
 
-            }
-            try
-            {
-                await _fileService.PostFileAsync(fileDetails.FileDetails, fileDetails.FileType);
-                return Ok();
-            }
-            catch (Exception)
-            {
+        [HttpPost]
+        public async Task<IActionResult> Index(IFormFile file)
+        {
+            string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+            await _fileService.ConvertFileAsync(file, uploadFolder);
 
-                throw;
-            }
+
+            return View();
+        }
+
+        public ActionResult DownloadDocument(string filePath, string fileName)
+        {
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+
+            return File(fileBytes, "application/force-download", fileName);
 
         }
- 
 
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace APP.KMX.Services.Interfaces
 {
     public interface IFileService
     {
-        public Task PostFileAsync(IFormFile fileData, FileType fileType);
+        public Task ConvertFileAsync(IFormFile fileData, string uploadPath);
 
     }
 }
