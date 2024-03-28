@@ -13,6 +13,8 @@ namespace APP.KMX.Controllers
         private readonly IFileService _fileService;
         private readonly ILogger<HomeController> _logger;
 
+        private string filePath = string.Empty;
+
         public HomeController(ILogger<HomeController> logger, IWebHostEnvironment webHostEnvironment, IFileService fileService)
         {
             _logger = logger;
@@ -26,20 +28,26 @@ namespace APP.KMX.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(IFormFile file)
+        public async Task<ActionResult> Index(IFormFile file)
         {
             string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
-            await _fileService.ConvertFileAsync(file, uploadFolder);
+            var uploadedFile = await _fileService.ConvertFileAsync(file, uploadFolder);
+            filePath = uploadedFile;
 
 
-            return View();
+            return DownloadDocument();
         }
 
-        public ActionResult DownloadDocument(string filePath, string fileName)
+        public ActionResult DownloadDocument()
         {
-            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            if(filePath != string.Empty)
+            {
+                byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
 
-            return File(fileBytes, "application/force-download", fileName);
+                return File(fileBytes, "application/force-download");
+
+            }
+            return View(Index());
 
         }
 

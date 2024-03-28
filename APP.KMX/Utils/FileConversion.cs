@@ -6,10 +6,11 @@ namespace APP.KMX.Utils
     public class FileConversion
     {
         //TODO: Create a call for the ConvertXlsxToKML method, passing the filePath;
-        public static void ConvertXlsxToKML(string xlsxFilePath)
+        public static string ConvertXlsxToKML(string xlsxFilePath)
         {
             // Load XLSX data and process it
             List<List<string>> data = ReadXlsx(xlsxFilePath);
+            string kmlFilePath = Path.ChangeExtension(xlsxFilePath, ".kml");
 
             if (data != null)
             {
@@ -17,9 +18,9 @@ namespace APP.KMX.Utils
                 string kmlContent = GenerateKML(data);
 
                 // Write KML content to file
-                string kmlFilePath = Path.ChangeExtension(xlsxFilePath, ".kml");
                 File.WriteAllText(kmlFilePath, kmlContent);
             }
+            return kmlFilePath;
         }
 
         static List<List<string>> ReadXlsx(string filePath)

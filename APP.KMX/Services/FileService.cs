@@ -2,12 +2,13 @@
 using APP.KMX.Services.Interfaces;
 using APP.KMX.Utils;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 
 namespace APP.KMX.Services
 {
     public class FileService : IFileService
     {
-        public async Task ConvertFileAsync(IFormFile fileData, string uploadFolder)
+        public async Task<string> ConvertFileAsync(IFormFile fileData, string uploadFolder)
         {
             if (!Directory.Exists(uploadFolder))
             {
@@ -16,7 +17,7 @@ namespace APP.KMX.Services
 
 
             if (fileData == null || fileData.Length == 0)
-                return;
+                return string.Empty;
 
             string fileName = Path.GetFileName(fileData.FileName);
             string fileSavePath = Path.Combine(uploadFolder, fileName);
@@ -27,7 +28,9 @@ namespace APP.KMX.Services
             }
 
 
-            FileConversion.ConvertXlsxToKML(fileSavePath);
+            return FileConversion.ConvertXlsxToKML(fileSavePath);
+
         }
+
     }
 }

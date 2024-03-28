@@ -1,10 +1,13 @@
 ﻿using APP.KMX.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace APP.KMX.Services.Interfaces
 {
     public interface IFileService
     {
-        public Task ConvertFileAsync(IFormFile fileData, string uploadPath);
+        public Task<string> ConvertFileAsync(IFormFile fileData, string uploadPath);
+
+
 
     }
 }

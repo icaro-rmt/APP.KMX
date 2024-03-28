@@ -33,11 +33,13 @@ namespace APP.KMX.Controllers
             return View();
         }
 
-        public ActionResult DownloadDocument(string filePath, string fileName)
+        [HttpGet]
+        public ActionResult DownloadDocument(string file)
         {
+            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "uploads") + file;
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
 
-            return File(fileBytes, "application/force-download", fileName);
+            return File(fileBytes, "application/force-download", file);
 
         }
 
