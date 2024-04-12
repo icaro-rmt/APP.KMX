@@ -1,5 +1,4 @@
-﻿using APP.KMX.Entities;
-using APP.KMX.Models;
+﻿using APP.KMX.Models;
 using APP.KMX.Services.Interfaces;
 using APP.KMX.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +43,7 @@ namespace APP.KMX.Controllers
             {
                 byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
 
-                return File(fileBytes, "application/force-download");
+                return File(fileBytes, "application/force-download", "Conversion.kml");
 
             }
             return View(Index());

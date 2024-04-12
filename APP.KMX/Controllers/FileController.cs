@@ -1,5 +1,4 @@
-﻿using APP.KMX.Entities;
-using APP.KMX.Models;
+﻿using APP.KMX.Models;
 using APP.KMX.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

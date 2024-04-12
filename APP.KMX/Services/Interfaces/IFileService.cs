@@ -1,5 +1,4 @@
-﻿using APP.KMX.Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace APP.KMX.Services.Interfaces
 {

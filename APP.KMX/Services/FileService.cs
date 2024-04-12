@@ -1,5 +1,4 @@
-﻿using APP.KMX.Entities;
-using APP.KMX.Services.Interfaces;
+﻿using APP.KMX.Services.Interfaces;
 using APP.KMX.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
