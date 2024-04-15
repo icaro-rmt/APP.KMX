@@ -3,19 +3,27 @@ using System.Xml;
 
 namespace APP.KMX.Utils
 {
-    public class FileConversion
+    public class FileConversion 
     {
+        /// <summary>
+        /// Validating if is Northern or Southern Hemisphere
+        /// </summary>
+        /// <param name="parametro"></param>
+        /// <returns>If is Southern: returns true</returns>
+
         //TODO: Create a call for the ConvertXlsxToKML method, passing the filePath;
         public static string ConvertXlsxToKML(string xlsxFilePath)
         {
+            var conversor = new ConversortUtm();
             // Load XLSX data and process it
-            List<List<string>> data = ReadXlsx(xlsxFilePath);
+            var data = conversor.ReadXlsx(xlsxFilePath);
             string kmlFilePath = Path.ChangeExtension(xlsxFilePath, ".kml");
+            var coordenadas = conversor.TransformDataIntoLatitudeLongitude(data);
 
             if (data != null)
             {
                 // Generate KML content
-                string kmlContent = GenerateKML(data);
+                string kmlContent = GerarKml(coordenadas);
 
                 // Write KML content to file
                 File.WriteAllText(kmlFilePath, kmlContent);
@@ -23,35 +31,9 @@ namespace APP.KMX.Utils
             return kmlFilePath;
         }
 
-        static List<List<string>> ReadXlsx(string filePath)
+        public static string GerarKml(List<double[]> data)
         {
-            List<List<string>> data = new List<List<string>>();
-
-            using (var workbook = new XLWorkbook(filePath))
-            {
-                var worksheet = workbook.Worksheet(1); // Assuming first worksheet
-
-                // Iterate over the rows
-                foreach (var row in worksheet.RowsUsed())
-                {
-                    List<string> rowData = new List<string>();
-
-                    // Iterate over the cells in the row
-                    foreach (var cell in row.Cells())
-                    {
-                        rowData.Add(cell.Value.ToString());
-                        Console.WriteLine(cell.Value.ToString());
-                    }
-
-                    data.Add(rowData);
-                }
-            }
-
-            return data;
-        }
-
-        static string GenerateKML(List<List<string>> data)
-        {
+            int item = 0;
             // Create XML document for KML
             XmlDocument xmlDoc = new XmlDocument();
             XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -68,6 +50,7 @@ namespace APP.KMX.Utils
             // Iterate through data and create Placemark elements
             foreach (var row in data)
             {
+                item++;
                 // Assuming the first row contains headers
                 if (row == data[0])
                     continue;
@@ -78,7 +61,7 @@ namespace APP.KMX.Utils
 
                 // Create name element
                 XmlElement nameElement = xmlDoc.CreateElement("name");
-                nameElement.InnerText = row[0]; // Assuming the name is the first column
+                nameElement.InnerText = "Point"; // Assuming the name is the first column
                 placemarkElement.AppendChild(nameElement);
 
                 // Create Point element
@@ -87,7 +70,7 @@ namespace APP.KMX.Utils
 
                 // Create coordinates element
                 XmlElement coordinatesElement = xmlDoc.CreateElement("coordinates");
-                coordinatesElement.InnerText = $"{row[2].Replace(',', '.')},{row[1].Replace(',', '.')},0"; // Assuming Latitude and Longitude are the second and third columns respectively
+                coordinatesElement.InnerText = $"{row[1].ToString().Replace(',','.')},{row[0].ToString().Replace(',', '.')}";
                 pointElement.AppendChild(coordinatesElement);
             }
 
