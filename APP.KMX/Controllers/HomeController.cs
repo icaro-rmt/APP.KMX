@@ -30,11 +30,20 @@ namespace APP.KMX.Controllers
         public async Task<ActionResult> Index(IFormFile file)
         {
             string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
-            var uploadedFile = await _fileService.ConvertFileAsync(file, uploadFolder);
-            filePath = uploadedFile;
+            try
+            {
+                var uploadedFile = await _fileService.ConvertFileAsync(file, uploadFolder);
+                filePath = uploadedFile;
 
 
-            return DownloadDocument();
+                return DownloadDocument();
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Arquivo com erro") ;
+            }
+            
         }
 
         public ActionResult DownloadDocument()

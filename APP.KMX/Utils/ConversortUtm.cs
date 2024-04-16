@@ -6,6 +6,7 @@ using DocumentFormat.OpenXml.InkML;
 using GeoAPI.CoordinateSystems;
 using GeoAPI.CoordinateSystems.Transformations;
 using CoordinateSharp;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 
 namespace APP.KMX.Utils
 {
@@ -34,13 +35,16 @@ namespace APP.KMX.Utils
         }
 
 
-        public List<double[]> TransformDataIntoLatitudeLongitude (List<UTMFormat> data)
+        public List<CoordinateOutput> TransformDataIntoLatitudeLongitude (List<UTMFormat> data)
         {
-            List<double[]> coordenadas = new List<double[]>();
+            List<CoordinateOutput> coordenadas = new List<CoordinateOutput>();
             foreach(UTMFormat info in data)
             {
-                Console.WriteLine(info.ToString());
-                coordenadas.Add(UTMToLatLon(info.Easting, info.Northing, info.ZoneNumber,info.ZoneLetter));
+                CoordinateOutput teste = new CoordinateOutput();
+                teste.Coordinates = UTMToLatLon(info.Easting, info.Northing, info.ZoneNumber, info.ZoneLetter);
+                teste.Point = info.PointName;
+
+                coordenadas.Add(teste);
             }
             return coordenadas;            
 
@@ -57,6 +61,11 @@ namespace APP.KMX.Utils
                 // Iterate over the rows
                 foreach (var row in worksheet.RowsUsed())
                 {
+                    if (row.FirstCell().Value.ToString() == "Elemento")
+                    {
+                        continue;
+                    }
+                    
                     UTMFormat line = GetDataFromRows(row);
                     data.Add(line);
                 }
@@ -73,14 +82,24 @@ namespace APP.KMX.Utils
             {
                 linha.Add(cell.Value.ToString());
             }
-            
-            data.Northing = Convert.ToDouble(linha[2].Split(' ')[0].Replace('.',','));
-            data.Easting = Convert.ToDouble(linha[1].Split(' ')[0].Replace('.', ','));
-            data.ZoneNumber = Convert.ToInt32(linha[0].Split(' ')[0]);
-            data.ZoneLetter = (linha[0].Split(' ')[1]);
-            data.IsNorth = ValidateNorthHemisphere(data.ZoneLetter);
 
-            return data;
+            try
+            {
+                data.PointName = linha[0].ToString();
+                data.Northing = Convert.ToDouble(linha[3].Split(' ')[0].Replace('.', ','));
+                data.Easting = Convert.ToDouble(linha[2].Split(' ')[0].Replace('.', ','));
+                data.ZoneNumber = Convert.ToInt32(linha[1].Split(' ')[0]);
+                data.ZoneLetter = (linha[1].Split(' ')[1]);
+                data.IsNorth = ValidateNorthHemisphere(data.ZoneLetter);
+
+                return data;
+            }
+            catch (Exception)
+            {
+
+                return data;
+            }
+            
         }
 
         private bool ValidateNorthHemisphere(string parametro)

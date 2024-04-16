@@ -2,6 +2,7 @@
 {
     public class UTMFormat
     {
+        public string PointName { get; set; }
         public double Easting { get; set; }
         public double Northing { get; set; }
         public int ZoneNumber { get; set; }

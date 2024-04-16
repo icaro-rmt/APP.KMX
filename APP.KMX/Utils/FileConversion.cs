@@ -1,4 +1,5 @@
-﻿using ClosedXML.Excel;
+﻿using APP.KMX.Models;
+using ClosedXML.Excel;
 using System.Xml;
 
 namespace APP.KMX.Utils
@@ -31,7 +32,7 @@ namespace APP.KMX.Utils
             return kmlFilePath;
         }
 
-        public static string GerarKml(List<double[]> data)
+        public static string GerarKml(List<CoordinateOutput> data)
         {
             int item = 0;
             // Create XML document for KML
@@ -61,7 +62,7 @@ namespace APP.KMX.Utils
 
                 // Create name element
                 XmlElement nameElement = xmlDoc.CreateElement("name");
-                nameElement.InnerText = "Point"; // Assuming the name is the first column
+                nameElement.InnerText = row.Point; // Assuming the name is the first column
                 placemarkElement.AppendChild(nameElement);
 
                 // Create Point element
@@ -70,7 +71,7 @@ namespace APP.KMX.Utils
 
                 // Create coordinates element
                 XmlElement coordinatesElement = xmlDoc.CreateElement("coordinates");
-                coordinatesElement.InnerText = $"{row[1].ToString().Replace(',','.')},{row[0].ToString().Replace(',', '.')}";
+                coordinatesElement.InnerText = $"{row.Coordinates[1].ToString().Replace(',','.')},{row.Coordinates[0].ToString().Replace(',', '.')}";
                 pointElement.AppendChild(coordinatesElement);
             }
 
