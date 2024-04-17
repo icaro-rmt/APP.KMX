@@ -11,8 +11,6 @@ namespace APP.KMX.Utils
         /// </summary>
         /// <param name="parametro"></param>
         /// <returns>If is Southern: returns true</returns>
-
-        //TODO: Create a call for the ConvertXlsxToKML method, passing the filePath;
         public static string ConvertXlsxToKML(string xlsxFilePath)
         {
             var conversor = new ConversortUtm();
@@ -51,11 +49,6 @@ namespace APP.KMX.Utils
             // Iterate through data and create Placemark elements
             foreach (var row in data)
             {
-                item++;
-                // Assuming the first row contains headers
-                if (row == data[0])
-                    continue;
-
                 // Create Placemark element
                 XmlElement placemarkElement = xmlDoc.CreateElement("Placemark");
                 documentElement.AppendChild(placemarkElement);
