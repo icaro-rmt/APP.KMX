@@ -20,15 +20,30 @@ namespace APP.KMX.Services
 
             string fileName = Path.GetFileName(fileData.FileName);
             string fileSavePath = Path.Combine(uploadFolder, fileName);
+            var extension = Path.GetExtension(fileName);
 
             using (var stream = new FileStream(fileSavePath, FileMode.Create))
             {
                 await fileData.CopyToAsync(stream);
             }
 
+            string convertedFile = SelectFileTypeToConvert(extension, fileSavePath);
 
-            return FileConversion.ConvertXlsxToKML(fileSavePath);
+            return convertedFile;
 
+        }
+        private string SelectFileTypeToConvert(string fileType, string fileSavePath)
+        {
+            switch (fileType)
+            {
+                case ".xlsx":
+                    return FileConversion.ConvertXlsxToKML(fileSavePath);
+                
+                case ".kml":
+                    return FileConversion.ConvertKMLToXlsx(fileSavePath);
+
+                default: return "";
+            }
         }
 
     }

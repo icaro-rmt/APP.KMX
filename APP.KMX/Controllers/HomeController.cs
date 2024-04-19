@@ -10,13 +10,11 @@ namespace APP.KMX.Controllers
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IFileService _fileService;
-        private readonly ILogger<HomeController> _logger;
 
         private string filePath = string.Empty;
 
         public HomeController(ILogger<HomeController> logger, IWebHostEnvironment webHostEnvironment, IFileService fileService)
         {
-            _logger = logger;
             _webHostEnvironment = webHostEnvironment;
             _fileService = fileService;
         }
@@ -34,9 +32,9 @@ namespace APP.KMX.Controllers
             {
                 var uploadedFile = await _fileService.ConvertFileAsync(file, uploadFolder);
                 filePath = uploadedFile;
+                string fileName = Path.GetFileName(filePath);
 
-
-                return DownloadDocument();
+                return DownloadDocument(fileName);
             }
             catch (Exception)
             {
@@ -46,16 +44,24 @@ namespace APP.KMX.Controllers
             
         }
 
-        public ActionResult DownloadDocument()
+        public ActionResult DownloadDocument(string fileName)
         {
-            if(filePath != string.Empty)
+            try
             {
-                byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+                if (filePath != string.Empty)
+                {
+                    byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
 
-                return File(fileBytes, "application/force-download", "Conversion.kml");
+                    return File(fileBytes, "application/force-download", fileName);
 
+                }
+                return View(Index());
             }
-            return View(Index());
+            catch (Exception)
+            {
+
+                return View(Index());
+            }
 
         }
 

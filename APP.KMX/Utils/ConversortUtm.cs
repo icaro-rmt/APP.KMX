@@ -2,23 +2,13 @@
 using ProjNet.CoordinateSystems.Transformations;
 using ClosedXML.Excel;
 using APP.KMX.Models;
-using DocumentFormat.OpenXml.InkML;
-using GeoAPI.CoordinateSystems;
-using GeoAPI.CoordinateSystems.Transformations;
 using CoordinateSharp;
-using DocumentFormat.OpenXml.Drawing.Diagrams;
 
 namespace APP.KMX.Utils
 {
     public class ConversortUtm
     {
-        private readonly CoordinateTransformationFactory _transformFactory;
         private static readonly List<string> SouthKeys = new List<string> { "C", "D", "E", "F", "G", "H", "J", "K", "L", "M" };
-
-        public ConversortUtm()
-        {
-            _transformFactory = new CoordinateTransformationFactory();
-        }
 
         public double[] UTMToLatLon(double easting, double northing, int zoneNumber, string letraZona)
         {
@@ -30,23 +20,22 @@ namespace APP.KMX.Utils
             double latitude = c.Latitude.ToDouble();
             double longitude = c.Longitude.ToDouble();
 
-            double[] testes = new double[] { latitude, longitude };
-            return testes;
+            double[] coordenadas = new double[] { latitude, longitude };
+            return coordenadas;
         }
-
-
+        
         public List<CoordinateOutput> TransformDataIntoLatitudeLongitude (List<UTMFormat> data)
         {
-            List<CoordinateOutput> coordenadas = new List<CoordinateOutput>();
+            List<CoordinateOutput> listaCoordenadas = new List<CoordinateOutput>();
             foreach(UTMFormat info in data)
             {
-                CoordinateOutput teste = new CoordinateOutput();
-                teste.Coordinates = UTMToLatLon(info.Easting, info.Northing, info.ZoneNumber, info.ZoneLetter);
-                teste.Point = info.PointName;
+                CoordinateOutput coordenadas = new CoordinateOutput();
+                coordenadas.Coordinates = UTMToLatLon(info.Easting, info.Northing, info.ZoneNumber, info.ZoneLetter);
+                coordenadas.Point = info.PointName;
 
-                coordenadas.Add(teste);
+                listaCoordenadas.Add(coordenadas);
             }
-            return coordenadas;            
+            return listaCoordenadas;            
 
         }
 
@@ -56,7 +45,7 @@ namespace APP.KMX.Utils
 
             using (var workbook = new XLWorkbook(filePath))
             {
-                var worksheet = workbook.Worksheet(1); // Assuming first worksheet
+                var worksheet = workbook.Worksheet(1);
 
                 // Iterate over the rows
                 foreach (var row in worksheet.RowsUsed())
@@ -78,6 +67,7 @@ namespace APP.KMX.Utils
         {
             var data = new UTMFormat();
             var linha = new List<string>();
+
             foreach (var cell in row.Cells())
             {
                 linha.Add(cell.Value.ToString());
@@ -85,11 +75,13 @@ namespace APP.KMX.Utils
 
             try
             {
+                var valorZona = linha[1][linha[1].Length - 1].ToString();
+
                 data.PointName = linha[0].ToString();
                 data.Northing = Convert.ToDouble(linha[3].Split(' ')[0].Replace('.', ','));
                 data.Easting = Convert.ToDouble(linha[2].Split(' ')[0].Replace('.', ','));
                 data.ZoneNumber = Convert.ToInt32(linha[1].Split(' ')[0]);
-                data.ZoneLetter = (linha[1].Split(' ')[1]);
+                data.ZoneLetter = valorZona;
                 data.IsNorth = ValidateNorthHemisphere(data.ZoneLetter);
 
                 return data;
