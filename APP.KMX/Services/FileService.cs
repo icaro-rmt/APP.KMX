@@ -1,5 +1,6 @@
 ﻿using APP.KMX.Services.Interfaces;
 using APP.KMX.Utils;
+using DocumentFormat.OpenXml.Office.Word;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +10,8 @@ namespace APP.KMX.Services
     {
         public async Task<string> ConvertFileAsync(IFormFile fileData, string uploadFolder)
         {
-            if (!Directory.Exists(uploadFolder))
-            {
-                Directory.CreateDirectory(uploadFolder);
-            }
 
+            await CheckIfFolderExists(uploadFolder);
 
             if (fileData == null || fileData.Length == 0)
                 return string.Empty;
@@ -32,8 +30,37 @@ namespace APP.KMX.Services
             return convertedFile;
 
         }
-        private string SelectFileTypeToConvert(string fileType, string fileSavePath)
+
+        private Task CheckIfFolderExists(string uploadFolder)
         {
+            if (!Directory.Exists(uploadFolder))
+            {
+                Directory.CreateDirectory(uploadFolder);
+            }
+            return Task.CompletedTask;
+        }
+
+        //TODO: Clear Files from  Uploads folder after conversion, in order to prevent disk consuming
+        public Task ClearFiles(string uploadFolder)
+        {
+            DirectoryInfo directory = new DirectoryInfo(uploadFolder);
+
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                file.Delete();
+            }
+            foreach (DirectoryInfo dir in directory.GetDirectories())
+            {
+                dir.Delete(true);
+            }
+
+            return Task.CompletedTask;
+
+        }
+
+        //private 
+        private string SelectFileTypeToConvert(string fileType, string fileSavePath)
+        { 
             switch (fileType)
             {
                 case ".xlsx":

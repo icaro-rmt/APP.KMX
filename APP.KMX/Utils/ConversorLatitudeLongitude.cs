@@ -4,8 +4,6 @@ using GeoAPI.CoordinateSystems;
 using ProjNet.CoordinateSystems.Transformations;
 using ProjNet.CoordinateSystems;
 using System.Xml;
-using System.Xml.Linq;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace APP.KMX.Utils
 {
@@ -92,8 +90,8 @@ namespace APP.KMX.Utils
             UtmCoordinates coordenadasUTM = new UtmCoordinates{
                 Letter = zoneLetter,
                 Zone = zoneNumber,
-                Easting = numerosConvertidos[0],
-                Northing = numerosConvertidos[1],
+                Easting = Math.Round(numerosConvertidos[0],2),
+                Northing = Math.Round(numerosConvertidos[1],2),
                 PointName = coordenada.Point
             };           
 

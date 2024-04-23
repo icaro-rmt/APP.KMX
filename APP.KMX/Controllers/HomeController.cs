@@ -1,6 +1,5 @@
 ﻿using APP.KMX.Models;
 using APP.KMX.Services.Interfaces;
-using APP.KMX.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -35,10 +34,10 @@ namespace APP.KMX.Controllers
                 string fileName = Path.GetFileName(filePath);
 
                 return DownloadDocument(fileName);
+                
             }
             catch (Exception)
             {
-
                 return BadRequest("Arquivo com erro") ;
             }
             
@@ -59,7 +58,6 @@ namespace APP.KMX.Controllers
             }
             catch (Exception)
             {
-
                 return View(Index());
             }
 
