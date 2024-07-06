@@ -1,0 +1,19 @@
+﻿@model CardModel
+
+<div class="col-md-4 p-2">
+    <div class="card">
+        <div class="card-body text-center">
+            <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">@Model.Text</p>
+            @if(Model.ShowForm)
+            {
+                <button type="button" class="btn btn-primary" onclick="showForm('@Url.Action(Model.ActionName, Model.ControllerName)')">Selecionar</button>
+            }
+            else{
+                <a href="@Url.Action(Model.ActionName, Model.ControllerName)" class="btn btn-primary">Selecionar</a>
+            }
+           @*  <a href="@Url.Action(Model.ActionName, Model.ControllerName)" class="btn btn-primary">Selecionar</a> *@
+        </div>
+    </div>
+</div>

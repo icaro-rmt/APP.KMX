@@ -20,7 +20,38 @@ namespace APP.KMX.Controllers
         
         public IActionResult Index()
         {
-            return View();
+            var cards = new List<CardModel>
+            {
+                new CardModel
+                {
+                    ImageUrl = Url.Content("~/img/xls-kml.png"),
+                    Title = "Converter Excel",
+                    Text = "Converter de Excel para KMX",
+                    ActionName = "ConverterXls",
+                    ControllerName = "Home",
+                    ShowForm = true,
+                },
+                new CardModel
+                {
+                    ImageUrl = Url.Content("~/img/kml-xls.png"),
+                    Title = "Converter KML",
+                    Text = "Converter de KML para Excel",
+                    ActionName = "ConverterKml",
+                    ControllerName = "Home",
+                    ShowForm = true,
+                },
+                new CardModel
+                {
+                    ImageUrl = Url.Content("~/img/microsoft-excel.png"),
+                    Title = "Modelo de Excel",
+                    Text = "Download Arquivo Modelo Excel",
+                    ActionName = "DownloadSampleDocument",
+                    ControllerName = "Home",
+                    ShowForm = false,
+                },
+            };
+
+            return View(cards);
         }
 
         [HttpPost]
@@ -28,7 +59,7 @@ namespace APP.KMX.Controllers
         {
             string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
             try
-            {
+            { 
                 var uploadedFile = await _fileService.ConvertFileAsync(file, uploadFolder);
                 filePath = uploadedFile;
                 string fileName = Path.GetFileName(filePath);
@@ -43,6 +74,27 @@ namespace APP.KMX.Controllers
             
         }
 
+        public ActionResult DownloadSampleDocument()
+        {
+            string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "fileModels");
+            filePath = uploadFolder + "/modeloExcel.xlsx";
+            try
+            {
+                if (filePath != string.Empty)
+                {
+                    byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+
+                    return File(fileBytes, "application/force-download", "modeloExcel.xlsx");
+
+                }
+                return View(Index());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
         public ActionResult DownloadDocument(string fileName)
         {
             try
@@ -56,9 +108,9 @@ namespace APP.KMX.Controllers
                 }
                 return View(Index());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
 
         }

@@ -1,62 +1,67 @@
-﻿@{
-    ViewData["Title"] = "KMX, convertendo em 1 piscar de olhos as suas coordenadas.";
-}
+﻿@model IEnumerable<CardModel>
 
-<form classaction="form-signin" method="post" enctype="multipart/form-data" asp-controller="Home"
-      asp-action="Index">
+    @{
+        ViewData["Title"] = "KMX, convertendo em 1 piscar de olhos as suas coordenadas.";
+    }
+
+    <!-- Include Bootstrap CSS and JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <div class="text-center mb-6">
         <img class="mb-6" src="/img/logokmx.jpeg" alt="" width="300" height="300">
         <h1 class="h3 mb-6 font-weight-normal"><b>KMX Convert</b></h1>
     </div>
+
     <div class="text-center mb-6">
-        <div class="mb-6">
-            <input type="file" name="file" id="inputEmail" class="form-control" placeholder="importar arquivo" required autofocus>
-        </div>
         <label class="mt-3 h5 mb-6 font-weight-normal" style="color: rebeccapurple;">
             KMX, convertendo em 1 piscar de olhos as suas coordenadas.
             <br><hr>Ferramenta Compatível com :  <b> Google Earth, Google Mapas e Excel </b> <br><br>
         </label>
-    </div>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:white; color: rebeccapurple; border: solid;" asp-action="">Converter</button>
-    <p class="mt-5 mb-3 text-muted text-center">&copy; 2024</p>
-</form>
-
-<!-- WhatsApp Button -->
-<link rel="stylesheet" href="https://cdn.positus.global/production/resources/robbu/whatsapp-button/whatsapp-button.css">
-<a id="robbu-whatsapp-button" target="_blank" href="https://api.whatsapp.com/send?phone=556782100953&text=Seja%20bem%20vindo">
-    <div class="rwb-tooltip">Fale com nosso Suporte</div>
-    <img src="https://cdn.positus.global/production/resources/robbu/whatsapp-button/whatsapp-icon.svg">
-</a>
-
-<!-- Include Bootstrap CSS and JS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Trigger Button for YouTube Video Popup -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeModal">Ver Tutorial</button>
-
-<!-- YouTube Video Modal -->
-<div id="youtubeModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">KMX Convert Tutorial</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/y3aufOEfdhw" allowfullscreen></iframe>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <div class="container">
+            <div class="row">
+                @foreach (var card in Model)
+                {
+                    @Html.Partial("_Card", card)
+                }
             </div>
         </div>
-
     </div>
-</div>
+
+    <!-- Render the form initially hidden -->
+    <div id="formContainer" class="d-none">
+        @Html.Partial("_Form")
+    </div>
+
+    <!-- WhatsApp Button -->
+    @Html.Partial("_MailButton")
+
+    <!-- YouTube Video Modal -->
+    @Html.Partial("_YoutubeModal")
+
+    <script>
+        function showForm(actionUrl) {
+            // Show the form
+            console.log("A action e: ",actionUrl)
+            var formContainer = document.getElementById('formContainer');
+            formContainer.classList.remove('d-none');
+            console.log(formContainer);
+
+            // Set the action URL
+            var dynamicForm = document.getElementById('dynamicForm');
+            dynamicForm.action = actionUrl;
+            console.log(actionUrl);
+        }
+
+        function submitForm() {
+            var form = document.querySelector('form');
+            console.log(form);
+            var actionUrl = document.getElementById('actionUrl').value;
+            console.log(actionUrl)
+            form.action = actionUrl;
+            return true;
+        }
+    </script>
