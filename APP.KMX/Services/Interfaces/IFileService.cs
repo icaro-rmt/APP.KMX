@@ -6,8 +6,5 @@ namespace APP.KMX.Services.Interfaces
     {
         public Task<string> ConvertFileAsync(IFormFile fileData, string uploadPath);
         public Task ClearFiles(string uploadDirectory);
-
-
-
     }
 }

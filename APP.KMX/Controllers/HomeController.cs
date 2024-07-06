@@ -17,7 +17,7 @@ namespace APP.KMX.Controllers
             _webHostEnvironment = webHostEnvironment;
             _fileService = fileService;
         }
-
+        
         public IActionResult Index()
         {
             return View();
@@ -38,7 +38,7 @@ namespace APP.KMX.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Arquivo com erro") ;
+                throw new Exception();
             }
             
         }
@@ -58,14 +58,9 @@ namespace APP.KMX.Controllers
             }
             catch (Exception)
             {
-                return View(Index());
+                throw new Exception();
             }
 
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

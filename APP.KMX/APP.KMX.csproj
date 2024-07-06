@@ -4,10 +4,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>3bd84060-70d8-4c1c-bf52-a2b19b929ff0</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\html\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
@@ -17,6 +19,7 @@
     <PackageReference Include="CoordinateSharp" Version="2.22.1.1" />
     <PackageReference Include="GeoCoordinate" Version="2.0.1" />
     <PackageReference Include="GeoCoordinate.NetCore" Version="1.0.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="Proj4Net" Version="1.0.0" />
     <PackageReference Include="ProjNET4GeoAPI" Version="1.4.1" />
   </ItemGroup>

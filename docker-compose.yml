@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  app.kmx:
+    image: ${DOCKER_REGISTRY-}appkmx
+    build:
+      context: .
+      dockerfile: APP.KMX/Dockerfile

@@ -10,24 +10,32 @@ namespace APP.KMX.Services
     {
         public async Task<string> ConvertFileAsync(IFormFile fileData, string uploadFolder)
         {
-
-            await CheckIfFolderExists(uploadFolder);
-
-            if (fileData == null || fileData.Length == 0)
-                return string.Empty;
-
-            string fileName = Path.GetFileName(fileData.FileName);
-            string fileSavePath = Path.Combine(uploadFolder, fileName);
-            var extension = Path.GetExtension(fileName);
-
-            using (var stream = new FileStream(fileSavePath, FileMode.Create))
+            try
             {
-                await fileData.CopyToAsync(stream);
+
+                await CheckIfFolderExists(uploadFolder);
+
+                if (fileData == null || fileData.Length == 0)
+                    return string.Empty;
+
+                string fileName = Path.GetFileName(fileData.FileName);
+                string fileSavePath = Path.Combine(uploadFolder, fileName);
+                var extension = Path.GetExtension(fileName);
+
+                using (var stream = new FileStream(fileSavePath, FileMode.Create))
+                {
+                    await fileData.CopyToAsync(stream);
+                }
+
+                string convertedFile = SelectFileTypeToConvert(extension, fileSavePath);
+
+                return convertedFile;
             }
+            catch (Exception)
+            {
 
-            string convertedFile = SelectFileTypeToConvert(extension, fileSavePath);
-
-            return convertedFile;
+                throw new Exception();
+            }
 
         }
 
