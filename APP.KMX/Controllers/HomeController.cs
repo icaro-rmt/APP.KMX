@@ -17,40 +17,11 @@ namespace APP.KMX.Controllers
             _webHostEnvironment = webHostEnvironment;
             _fileService = fileService;
         }
-        
+      
+
         public IActionResult Index()
         {
-            var cards = new List<CardModel>
-            {
-                new CardModel
-                {
-                    ImageUrl = Url.Content("~/img/xls-kml.png"),
-                    Title = "Converter Excel",
-                    Text = "Converter de Excel para KMX",
-                    ActionName = "ConverterXls",
-                    ControllerName = "Home",
-                    ShowForm = true,
-                },
-                new CardModel
-                {
-                    ImageUrl = Url.Content("~/img/kml-xls.png"),
-                    Title = "Converter KML",
-                    Text = "Converter de KML para Excel",
-                    ActionName = "ConverterKml",
-                    ControllerName = "Home",
-                    ShowForm = true,
-                },
-                new CardModel
-                {
-                    ImageUrl = Url.Content("~/img/microsoft-excel.png"),
-                    Title = "Modelo de Excel",
-                    Text = "Download Arquivo Modelo Excel",
-                    ActionName = "DownloadSampleDocument",
-                    ControllerName = "Home",
-                    ShowForm = false,
-                },
-            };
-
+            var cards = GenerateCards();
             return View(cards);
         }
 
@@ -72,6 +43,45 @@ namespace APP.KMX.Controllers
                 throw new Exception();
             }
             
+        }
+        [HttpPost]
+        public async Task<ActionResult> ConverterKml(IFormFile file)
+        {
+            string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+            try
+            {
+                var uploadedFile = await _fileService.ConvertFileAsync(file, uploadFolder);
+                filePath = uploadedFile;
+                string fileName = Path.GetFileName(filePath);
+
+                return DownloadDocument(fileName);
+
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ConverterExcel(IFormFile file)
+        {
+            string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+            try
+            {
+                var uploadedFile = await _fileService.ConvertFileAsync(file, uploadFolder);
+                filePath = uploadedFile;
+                string fileName = Path.GetFileName(filePath);
+
+                return DownloadDocument(fileName);
+
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+
         }
 
         public ActionResult DownloadSampleDocument()
@@ -119,6 +129,41 @@ namespace APP.KMX.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        protected List<CardModel> GenerateCards()
+        {
+            var cards = new List<CardModel>
+            {
+                new CardModel
+                {
+                    ImageUrl = Url.Content("~/img/xls-kml.png"),
+                    Title = "Converter Excel",
+                    Text = "Converter de Excel para KML",
+                    ActionName = "ConverterExcel",
+                    ControllerName = "Home",
+                    ShowForm = true,
+                },
+                new CardModel
+                {
+                    ImageUrl = Url.Content("~/img/kml-xls.png"),
+                    Title = "Converter KML",
+                    Text = "Converter de KML para Excel",
+                    ActionName = "ConverterKml",
+                    ControllerName = "Home",
+                    ShowForm = true,
+                },
+                new CardModel
+                {
+                    ImageUrl = Url.Content("~/img/microsoft-excel.png"),
+                    Title = "Modelo de Excel",
+                    Text = "Download Arquivo Modelo Excel",
+                    ActionName = "DownloadSampleDocument",
+                    ControllerName = "Home",
+                    ShowForm = false,
+                },
+            };
+            return cards;
         }
     }
 }

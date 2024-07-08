@@ -1,7 +1,17 @@
 ﻿@{
     Layout = null;
 }
+<form id="dynamicForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Index" onsubmit="return submitForm();">
+    <input type="hidden" id="actionUrl" name="actionUrl" value="@Url.Action("Index", "Home")" />
+    <div class="text-center mb-6">
+        <div class="mb-6">
+            <input type="file" name="file" id="inputEmail" class="form-control" placeholder="importar arquivo" required autofocus>
+        </div>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:white; color: rebeccapurple; border: solid;">Converter</button>
+</form>
 
+@* 
 <form id="dynamicForm" class="form-signin" method="post" enctype="multipart/form-data" onsubmit="return submitForm();">
     <input type="hidden" id="actionUrl" name="actionUrl"  />
 
@@ -13,4 +23,4 @@
 
     <button class="btn btn-lg btn-primary btn-block " type="submit" style="background-color:white; color: rebeccapurple; border: solid;">Converter</button>
     <p class="mt-5 mb-3 text-muted text-center">&copy; 2024</p>
-</form>
+</form> *@

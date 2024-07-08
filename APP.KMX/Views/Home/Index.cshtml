@@ -3,19 +3,18 @@
 @{
     ViewData["Title"] = "KMX, convertendo em 1 piscar de olhos as suas coordenadas.";
 }
+<!-- Include Bootstrap CSS and JS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Include Bootstrap CSS and JS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
     body {
         padding-top: 825px; /* Adjust the value as needed */
     }
 </style>
  
-
 <div>
     <div class="text-center mb-6">
         <img class="mb-6" src="/img/logokmx.jpeg" alt="" width="300" height="300">
@@ -28,7 +27,7 @@
     </div>
 
     <div class="text-center mb-6">
-        <div class="embed-responsive embed-responsive-16by9">
+        <div class="embed-responsive embed-responsive-16by9 mb-3">
             <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/y3aufOEfdhw" allowfullscreen></iframe>
         </div>
 
@@ -41,10 +40,10 @@
             </div>
         </div>
 
-        <!-- Render the form initially hidden -->
+@*         <!-- Render the form initially hidden -->
         <div id="formContainer" class="d-none">
             @Html.Partial("_Form")
-        </div>
+        </div> *@
 
         <!-- WhatsApp Button -->
         @Html.Partial("_MailButton")
@@ -54,9 +53,38 @@
     </div>
 </div>
     
-
-
 <script>
+    var currentFormContainerId = null;
+
+    function loadForm(actionUrl, containerId) {
+        // Revert the previous form to button if there's any
+        if (currentFormContainerId && currentFormContainerId !== containerId) {
+            var previousContainer = document.getElementById('formContainer-' + currentFormContainerId);
+            if (previousContainer) {
+                previousContainer.innerHTML = `
+                        <button type="button" class="btn btn-primary" onclick="loadForm('${actionUrl}', '${currentFormContainerId}')">Selecionar</button>
+                    `;
+            }
+        }
+
+        // Load the form into the specified container
+        var formContainer = document.getElementById('formContainer-' + containerId);
+        var formHtml = `
+                <form id="dynamicForm" method="post" enctype="multipart/form-data" action="${actionUrl}" onsubmit="return submitForm();">
+                    <input type="hidden" id="actionUrl" name="actionUrl" value="${actionUrl}" />
+                    <div class="text-center mb-6">
+                        <div class="mb-6">
+                            <input type="file" name="file" id="inputEmail" class="form-control" placeholder="importar arquivo" required autofocus>
+                        </div>
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:white; color: rebeccapurple; border: solid;">Converter</button>
+                </form>`;
+        formContainer.innerHTML = formHtml;
+
+        // Update the current form container ID
+        currentFormContainerId = containerId;
+    }
+
     function showForm(actionUrl) {
         // Show the form
         var formContainer = document.getElementById('formContainer');

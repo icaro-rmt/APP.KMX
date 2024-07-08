@@ -1,4 +1,7 @@
-﻿namespace APP.KMX.Models
+﻿
+using System;
+
+namespace APP.KMX.Models
 {
     public class CardModel
     {
@@ -8,5 +11,8 @@
         public string ActionName{ get; set; }
         public string ControllerName{ get; set; }
         public bool ShowForm { get; set; }
+
+        
+
     }
 }
