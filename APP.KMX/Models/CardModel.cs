@@ -10,9 +10,7 @@ namespace APP.KMX.Models
         public string Text{ get; set; }
         public string ActionName{ get; set; }
         public string ControllerName{ get; set; }
-        public bool ShowForm { get; set; }
-
-        
+        public bool ShowForm { get; set; }        
 
     }
 }

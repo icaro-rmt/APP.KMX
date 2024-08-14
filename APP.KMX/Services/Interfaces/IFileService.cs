@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace APP.KMX.Services.Interfaces
+﻿namespace APP.KMX.Services.Interfaces
 {
     public interface IFileService
     {

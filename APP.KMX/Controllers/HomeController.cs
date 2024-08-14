@@ -9,6 +9,7 @@ namespace APP.KMX.Controllers
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IFileService _fileService;
+        private readonly string _uploadFolder;
 
         private string filePath = string.Empty;
 
@@ -16,6 +17,7 @@ namespace APP.KMX.Controllers
         {
             _webHostEnvironment = webHostEnvironment;
             _fileService = fileService;
+            _uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
         }
       
 
@@ -28,10 +30,9 @@ namespace APP.KMX.Controllers
         [HttpPost]
         public async Task<ActionResult> Index(IFormFile file)
         {
-            string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
             try
             { 
-                var uploadedFile = await _fileService.ConvertFileAsync(file, uploadFolder);
+                var uploadedFile = await _fileService.ConvertFileAsync(file, _uploadFolder);
                 filePath = uploadedFile;
                 string fileName = Path.GetFileName(filePath);
 
@@ -47,15 +48,13 @@ namespace APP.KMX.Controllers
         [HttpPost]
         public async Task<ActionResult> ConverterKml(IFormFile file)
         {
-            string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
             try
             {
-                var uploadedFile = await _fileService.ConvertFileAsync(file, uploadFolder);
+                var uploadedFile = await _fileService.ConvertFileAsync(file, _uploadFolder);
                 filePath = uploadedFile;
                 string fileName = Path.GetFileName(filePath);
 
                 return DownloadDocument(fileName);
-
             }
             catch (Exception)
             {
@@ -67,10 +66,9 @@ namespace APP.KMX.Controllers
         [HttpPost]
         public async Task<ActionResult> ConverterExcel(IFormFile file)
         {
-            string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
             try
             {
-                var uploadedFile = await _fileService.ConvertFileAsync(file, uploadFolder);
+                var uploadedFile = await _fileService.ConvertFileAsync(file, _uploadFolder);
                 filePath = uploadedFile;
                 string fileName = Path.GetFileName(filePath);
 
@@ -131,7 +129,7 @@ namespace APP.KMX.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        protected List<CardModel> GenerateCards()
+        protected private List<CardModel> GenerateCards()
         {
             var cards = new List<CardModel>
             {

@@ -1,8 +1,6 @@
 ﻿using APP.KMX.Services.Interfaces;
 using APP.KMX.Utils;
-using DocumentFormat.OpenXml.Office.Word;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace APP.KMX.Services
 {
@@ -27,7 +25,7 @@ namespace APP.KMX.Services
                     await fileData.CopyToAsync(stream);
                 }
 
-                string convertedFile = SelectFileTypeToConvert(extension, fileSavePath);
+                string convertedFile = await SelectFileTypeToConvert(extension, fileSavePath);
 
                 return convertedFile;
             }
@@ -67,12 +65,12 @@ namespace APP.KMX.Services
         }
 
 
-        private string SelectFileTypeToConvert(string fileType, string fileSavePath)
+        private async Task<string> SelectFileTypeToConvert(string fileType, string fileSavePath)
         { 
             switch (fileType)
             {
                 case ".xlsx":
-                    return FileConversion.ConvertXlsxToKML(fileSavePath);
+                    return await FileConversion.ConvertXlsxToKML(fileSavePath);
                 
                 case ".kml":
                     return FileConversion.ConvertKMLToXlsx(fileSavePath);
