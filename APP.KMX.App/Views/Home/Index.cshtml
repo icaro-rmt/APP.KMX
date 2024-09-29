@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    
+    <div class="container-side-by-side">
+        <div>
+            <h1 class="main-text main-text-primary pb-4 ">
+                Descubra o KMX:
+            </h1>
+            <h2 class="main-text  pb-4">A solução ideal para converter seus pontos de coordenadas.</h2>
+            <p class="main-text">Com uma interface intuitiva, o KMX simplica a conversão de dados de planilhas .xls para .kmz, permitindo que você cire mapas interativos e detalhados com
+                agilidade e precisão. Transforme suas coordenadas em mapas vibrantes de maneira rápida e eficiente.
+            </p>
+            <button class="button-selecionar">Selecionar Arquivo <img src="img/upload-icon.svg" /></button>
+        </div>
+        <div>
+            <img src="img/main-page-img.svg" alt="KMZ Image"/>
+        </div>        
+    </div>  
+    
+    <div class="container mt-5">
+        <section>
+            <h1 class="main-text-primary">
+                Selecione o arquivo que deseja converter:
+            </h1>
+            <div class="row" >
+                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Ponto de coordenadas .xls para .kmz", IconClass = "xls-green.svg", Link = "/Converter/XlsParaKmz" })
+                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Pontos de coordenadas .kmz ou .kml para .xls", IconClass = "kmz-purple.svg", Link = "/Converter/KmzParaXls" })
+                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Calcular distância entre vários pontos .xls para .kmz", IconClass = "xls-yellow.svg", Link = "/Converter/DistanciaXlsKmz" })
+                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Calcular distância entre vários pontos .kmz para .xls", IconClass = "xls-blue.svg", Link = "/Converter/DistanciaKmzXls" })
+                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Criar rotas em endereço .xls para .kmz", IconClass = "xls-purple.svg", Link = "/Converter/RotasXlsKmz" })
+                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Criar rotas em endereço .kmz para .kml", IconClass = "kml-purple.svg", Link = "/Converter/RotasKmzKml" })
+            </div>
+        </section>
+        
+
+    </div>
+    <div>
+        <img class="pro-plan"src="img/banner-plano-pro.svg" alt="Plano Pro" />
+    </div>
+</div>
+
+<style>
+    .pro-plan{
+        width: auto;
+        height: auto;
+    }
+    .button-selecionar {
+        color: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 32px;
+        gap: 8px;
+        width: 285px;
+        height: 56px;
+        background: linear-gradient(125.74deg, #7F00FF 0%, #E100FF 101.18%);
+        border-radius: 30px;
+        border-color: transparent;
+        flex: none;
+        order: 3;
+        flex-grow: 0;
+    }
+    .main-text {        
+        text-align: justify;
+        text-justify: inter-character;
+    }
+    .main-text-primary{
+        color: #590D82;
+    }
+
+    .container-side-by-side {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100vh;
+    }
+
+        .container-side-by-side > div {
+            flex: 1;
+            margin: 10px;
+            text-align: center;
+        }
+
+            .container-side-by-side > div img {
+                max-width: 100%;
+                height: auto;
+            }
+</style>
+
+

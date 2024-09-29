@@ -1,0 +1,52 @@
+﻿@model ConversionButtonModel
+
+<div class="col-md-4 col-sm-6 mb-4">
+    <div class="card-style ">
+        <img src="img/button-icons/@Model.IconClass" class="fa-2x mb-3" alt="Alternate Text" />
+        @* <img class="@Model.IconClass  fa-2x mb-3"> *@
+        <p><strong>@Model.Title</strong></p>
+        <a href="@Model.Link" class="btn btn-outline-primary figure-img"><img src="img/button-icons/arrow-link.svg"/></a>
+    </div>
+</div>
+
+
+<style>
+    .figure-img{
+        border-color: transparent;
+    }
+    .text-style {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 0px;
+        gap: 10px;
+        width: auto;
+        height: auto;
+        /* Inside auto layout */
+        flex: none;
+        order: 1;
+        flex-grow: 1;
+    }
+    .card-style {
+        /* Card / Tools */
+        /* Auto layout */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 10px;
+        /* padding: 23px 19px; */
+        gap: 13px;
+        width: auto;
+        height: auto;
+        background: #FFFFFF;
+
+        /* Drop shadow/Light */
+        box-shadow: 3px 7px 30px rgba(112, 144, 176, 0.15);
+        border-radius: 25px;
+
+        /* Inside auto layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+    }
+</style>

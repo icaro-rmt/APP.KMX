@@ -1,4 +1,4 @@
-namespace APP.KMX.Models
+namespace APP.KMX.App.Models
 {
     public class ErrorViewModel
     {

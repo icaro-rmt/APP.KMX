@@ -1,6 +1,5 @@
 ﻿using APP.KMX.Services.Interfaces;
 using APP.KMX.Utils;
-using Microsoft.AspNetCore.Http;
 
 namespace APP.KMX.Services
 {
