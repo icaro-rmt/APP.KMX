@@ -1,0 +1,154 @@
+﻿<div class="main-card">
+    <h1>Faça login na sua conta</h1>
+    <p>Por favor insira suas informações nos campos abaixo para a plataforma </p>
+    <div class="login-card">
+
+        @* Parte Principal*@
+        <div>
+            <div class="text-area">
+                <p> Email</p>
+                <input class="text-input" />
+                @* @Html.TextBox(""); *@
+            </div>
+
+            <div class="text-area">
+                <p> Senha</p>
+                <input class="text-input" />
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
+                <label class="form-check-label" for="flexCheckIndeterminate">
+                    Lembrar meus dados de acesso
+                </label>
+            </div>
+
+
+            <div>
+                <button class="login-button">Entrar</button>
+            </div>
+
+        </div>
+        <div class="esquecer-criar">
+            <div class="esquecer-criar">
+                <div>Esqueceu sua Senha?</div>
+            </div>
+            <div class="esquecer-criar">
+
+            <div>Criar uma conta</div>
+            </div>
+        </div>
+        @* <div class="d-flex flex-column"> *@
+            <div>
+                <button class="login-google" > <img src="./img/button-icons/google-icon.svg"/>Continue com Google</button>
+            </div>
+            <div>
+                <button class="login-facebook"> Continue com Facebook</button>
+            </div>
+        @* </div> *@
+        
+
+    </div>
+
+
+</div>
+
+
+<style>
+    .main-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .login-google{
+        width:446px;
+        height:56px;
+        background: #FFFFFF;
+        border: 1px solid #EFF0F7;
+        box-shadow: 0px 2px 6px rgba(19, 18, 66, 0.07);
+        border-radius: 46px;
+    }
+
+    .login-facebook{
+        width: 446px;
+        height: 56px;
+        background: #FFFFFF;
+        border: 1px solid #EFF0F7;
+        box-shadow: 0px 2px 6px rgba(19, 18, 66, 0.07);
+        border-radius: 46px;
+    }
+    .esquecer-criar{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .login-button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 32px;
+        gap: 10px;
+        width: 448px;
+        height: 56px;
+        background: #590D82;
+        border-radius: 30px;
+        flex: none;
+        order: 3;
+        align-self: stretch;
+        flex-grow: 0;
+    }
+
+    .text-area {
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0px;
+        /* gap: 15px; */
+        width: 448px;
+        height: 91px;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+    }
+    .login-card{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 56px 49px;
+        gap: 27px;
+        width: 546px;
+        height: 734px;
+        background: #FFFFFF;
+        box-shadow: 3px 7px 30px rgba(112, 144, 176, 0.15);
+        border-radius: 24px;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+    }
+
+    .text-input{
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 16px 20px;
+        gap: 10px;
+        width: 448px;
+        height: 56px;
+        background: #FFFFFF;
+        border: 1px solid #E7E7E7;
+        border-radius: 30px;
+        flex: none;
+        order: 1;
+        align-self: stretch;
+        flex-grow: 0;
+    }
+</style>
+

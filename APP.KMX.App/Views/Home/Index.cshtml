@@ -22,9 +22,11 @@
     
     <div class="container mt-5">
         <section>
-            <h1 class="main-text-primary">
-                Selecione o arquivo que deseja converter:
-            </h1>
+            <div>
+                <h1 class="main-text-primary">
+                    Selecione o arquivo que deseja converter:
+                </h1>
+            </div>
             <div class="row" >
                 @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Ponto de coordenadas .xls para .kmz", IconClass = "xls-green.svg", Link = "/Converter/XlsParaKmz" })
                 @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Pontos de coordenadas .kmz ou .kml para .xls", IconClass = "kmz-purple.svg", Link = "/Converter/KmzParaXls" })

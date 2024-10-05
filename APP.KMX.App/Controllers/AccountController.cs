@@ -1,14 +1,15 @@
 ﻿using APP.KMX.App.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace APP.KMX.App.Controllers
 {
-    public class HomeController : Controller
+    public class AccountController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public AccountController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
@@ -18,7 +19,7 @@ namespace APP.KMX.App.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Login()
         {
             return View();
         }
