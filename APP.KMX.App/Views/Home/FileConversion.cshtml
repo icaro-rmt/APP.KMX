@@ -1,8 +1,14 @@
-﻿<div class="main-card">
+﻿@model ConversionButtonModel
+
+@{
+    ViewData["Title"] = "Converter Arquivo";
+}
+
+<div class="main-card">
     <div class="main-card">
         <div>
             <h1>
-                Pontos de coordenadas .xls para .kmz
+                Pontos de coordenadas @Model.ConvertFrom para @Model.ConvertTo
             </h1>
             <p>
                 Converta suas coordenadas e mapas de maneira rapida e eficiente
@@ -23,11 +29,7 @@
                 </div>
                 <p>Formatos aceitos: .xls .kml .kmz</p>
             </div>
-
-
-
         </div>
-
     </div>
 </div>
 

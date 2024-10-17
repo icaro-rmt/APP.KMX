@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<ConversionButtonModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -28,12 +30,10 @@
                 </h1>
             </div>
             <div class="row" >
-                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Ponto de coordenadas .xls para .kmz", IconClass = "xls-green.svg", Link = "/Converter/XlsParaKmz" })
-                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Pontos de coordenadas .kmz ou .kml para .xls", IconClass = "kmz-purple.svg", Link = "/Converter/KmzParaXls" })
-                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Calcular distância entre vários pontos .xls para .kmz", IconClass = "xls-yellow.svg", Link = "/Converter/DistanciaXlsKmz" })
-                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Calcular distância entre vários pontos .kmz para .xls", IconClass = "xls-blue.svg", Link = "/Converter/DistanciaKmzXls" })
-                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Criar rotas em endereço .xls para .kmz", IconClass = "xls-purple.svg", Link = "/Converter/RotasXlsKmz" })
-                @Html.Partial("_ConversionButton", new ConversionButtonModel { Title = "Criar rotas em endereço .kmz para .kml", IconClass = "kml-purple.svg", Link = "/Converter/RotasKmzKml" })
+                @foreach (var card in Model)
+                {
+                    @Html.Partial("_ConversionButton", card);
+                }
             </div>
         </section>
         

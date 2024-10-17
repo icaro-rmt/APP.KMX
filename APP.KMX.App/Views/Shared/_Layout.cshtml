@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - APP.KMX.App</title>
+    <title>@ViewData["Title"]</title>
+    @* FAVICON *@
+    @* <link rel="icon" type="image/x-icon" href="@Url.Content("~/i/logo")"> *@
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/APP.KMX.App.styles.css" asp-append-version="true" />
@@ -14,7 +17,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 position-fixed w-100">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/img/logo.svg" height="50" width="175"  alt="KMX Convert" />
@@ -59,7 +62,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" style="padding-top: 80px;">
             @RenderBody()
         </main>
     </div>
