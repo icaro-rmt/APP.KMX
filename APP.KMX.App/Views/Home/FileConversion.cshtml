@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="drag-n-drop">
-                    <img src="./img/upload-icon.svg" alt="File Upload" />
+                    <img src="/img/file-upload-icon.svg" alt="File Upload" />
                     CRIAR O DRAG N DROP AQUI
                     <p>Sao permitidos arquivos com no maximo <strong>10MB</strong></p>
                 </div>
@@ -60,10 +60,7 @@
     }
 
     .drag-n-drop {
-        /* many upload */
-
         box-sizing: border-box;
-        /* Auto layout */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -73,17 +70,16 @@
         width: 502px;
         height: 176px;
         background: #FFFFFF;
-        /* Color/Brand primary/main
-
-    590D82
-    */
         border: 1px dashed #590D82;
         border-radius: 8px;
-        /* Inside auto layout */
         flex: none;
         order: 1;
         align-self: stretch;
         flex-grow: 0;
+    }
+    .dragging{
+        border-color: #3A0E66;
+        background-color: #f3f0ff;
     }
 
 </style>
@@ -129,7 +125,43 @@
     }
 
     function uploadFile(file) {
-        // This is where you can handle the file upload (using AJAX or FormData)
-        console.log('File uploaded:', file.name);
+        let formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/File/Upload', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.blob();
+                } else {
+                    return response.json().then(error => {
+                        throw new Error(error.message || 'Error during file upload.');
+                    });
+                }
+            })
+            .then(blob => {
+                // Create a link element for downloading the file
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+
+                // Set the file name for the download
+                a.download = file.name.replace(/(\.\w+)?$/, '-converted$1');
+
+                // Append the link, trigger the click, and remove the link
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+
+                console.log('File downloaded successfully.');
+            })
+            .catch(error => {
+                console.error('Error uploading or downloading file:', error);
+                // Optionally, show an error message to the user
+            });
     }
 </script>

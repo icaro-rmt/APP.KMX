@@ -7,7 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\img\button-icons\facebook-icon.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\img\button-icons\facebook-icon.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\img\button-icons\facebook-icon.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\APP.KMX.Library\APP.KMX.Core.csproj" />
   </ItemGroup>
 
 </Project>

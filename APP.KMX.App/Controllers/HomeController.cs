@@ -8,6 +8,7 @@ namespace APP.KMX.App.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -23,9 +24,10 @@ namespace APP.KMX.App.Controllers
         {
             return View();
         }
+        [HttpPost]
         public IActionResult FileConversion(ConversionButtonModel model)
         {
-            model = new ConversionButtonModel { Title = "Ponto de coordenadas .xls para .kmz", IconClass = "xls-green.svg", Link = "/Home/FileConversion", ConvertFrom = ".xls", ConvertTo = ".kmz" };
+            //model = new ConversionButtonModel { Title = "Ponto de coordenadas .xls para .kmz", IconClass = "xls-green.svg", Link = "/Home/FileConversion", ConvertFrom = ".xls", ConvertTo = ".kmz" };
             return View(model);
         }
 

@@ -5,12 +5,25 @@
         <img src="img/button-icons/@Model.IconClass" class="fa-2x mb-3" alt="Alternate Text" />
         @* <img class="@Model.IconClass  fa-2x mb-3"> *@
         <p><strong>@Model.Title</strong></p>
-        <a href="@Model.Link" class="btn btn-outline-primary figure-img"><img src="img/button-icons/arrow-link.svg"/></a>
+        <form asp-action="FileConversion" asp-controller="Home" method="post">
+            <input type="hidden" name="Title" value="@Model.Title" />
+            <input type="hidden" name="IconClass" value="@Model.IconClass" />
+            <input type="hidden" name="Link" value="@Model.Link" />
+            <input type="hidden" name="ConvertFrom" value="@Model.ConvertFrom" />
+            <input type="hidden" name="ConvertTo" value="@Model.ConvertTo" />
+            <button type="submit" class="btn btn-outline-primary borderbtn">
+                <img src="img/button-icons/arrow-link.svg" />
+            </button>
+        </form>
+        @* <a href="@Model.Link" class="btn btn-outline-primary figure-img"><img src="img/button-icons/arrow-link.svg"/></a> *@
     </div>
 </div>
 
 
 <style>
+    .borderbtn{
+        border-color: transparent;
+    }
     .figure-img{
         border-color: transparent;
     }
