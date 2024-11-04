@@ -1,0 +1,113 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Cadastro";
+    var disabled = true;
+}
+
+
+<div class="main-card">
+    <h1>Criar uma conta</h1>
+    <p>Seja bem-vindo, preencha os dados abaixo para criação da conta</p>
+    <div class="create-account-card">
+
+        @* Parte Principal*@
+        <form>
+            <div>
+                <div class="text-area">
+                    <p style="font-weight:500;">Nome Completo</p>
+                    @Html.TextBoxFor(a => a.Name, new { @class = "text-input" })
+                </div>
+                <div class="text-area">
+                    <p style="font-weight:500;"> Email</p>
+                    @Html.TextBoxFor(a => a.Email, new { @class = "text-input" })
+                </div>
+                <div class="input-group mb-2">
+                    <p style="font-weight:500;"> Senha</p>
+                    @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password", id = "passwordField" })
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
+                            <img src class="" id="toggleIcon"></img>
+                        </button>
+                    </div>
+                    @Html.ValidationMessageFor(a => a.Password)
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <div class="mb-2"><img src="~/img/validation-icons/info.svg"/> Digite pelo menos 1 caractere minúsculo</div>
+                    <div class="mb-2"><img src="~/img/validation-icons/info.svg" /> Digite pelo menos 1 caractere MAIÚSCULO</div>
+                    <div class="mb-2"><img src="~/img/validation-icons/info.svg" /> Digite pelo menos 1 número</div>
+                    <div class="mb-2"><img src="~/img/validation-icons/info.svg" /> Tenha pelo menos 8 caracteres em sua senha</div>
+                </div>
+                <hr />
+                <div>
+                    <div class="form-check" style="padding-top: 10px; padding-bottom: 10px;">
+                        <input class="form-check-input" type="checkbox" value="" id="termsCheckbox">
+                        <label class="form-check-label" for="flexCheckIndeterminate">
+                            Eu concordo com os <a href="#">termos de uso</a> e <a href="#">política de privacidade</a>
+                        </label>
+                    </div>
+                    <div class="form-check" style="padding-top: 10px; padding-bottom: 10px;">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
+                        <label class="form-check-label" for="flexCheckIndeterminate">
+                            Lembrar meus dados de acesso
+                        </label>
+                    </div>
+                </div>
+
+
+                <div>
+                    <button id="loginButton" class="login-button-disabled" disabled>Entrar</button>
+                </div>
+         
+
+            </div>
+
+             <hr/>
+            <div>
+                <button class="login-google mb-2"><img src="/img/button-icons/google-icon.svg" /> Continue com Google</button>
+            </div>
+            <div>
+                <button class="login-facebook"><img src="/img/button-icons/facebook-icon.svg" /> Continue com Facebook</button>
+            </div>
+        </form>
+        
+       
+       
+    </div>
+
+
+</div>
+
+
+<script>
+    function togglePassword() {
+        var passwordField = document.getElementById("passwordField");
+        var toggleIcon = document.getElementById("toggleIcon");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye");
+        }
+    }
+    document.getElementById('termsCheckbox').addEventListener('change', function () {
+        // Get the login button
+        var loginButton = document.getElementById('loginButton');
+
+        // Enable the button if the checkbox is checked, otherwise disable it
+        loginButton.disabled = !this.checked;
+        if (!this.checked) {
+
+            loginButton.className = "login-button-disabled";
+        }
+        else {
+            loginButton.className = "login-button";
+        }
+
+    });
+</script>

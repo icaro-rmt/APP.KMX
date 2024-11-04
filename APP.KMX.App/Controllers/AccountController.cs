@@ -1,4 +1,5 @@
 ﻿using APP.KMX.App.Models;
+using APP.KMX.App.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -20,6 +21,22 @@ namespace APP.KMX.App.Controllers
         }
 
         public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Register(PasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Proceed with registration or any other logic
+                return RedirectToAction("Success");
+            }
+
+            // If model validation failed, return the same view to show errors
+            return View(model);
+        }
+        public IActionResult RegisterPage()
         {
             return View();
         }
