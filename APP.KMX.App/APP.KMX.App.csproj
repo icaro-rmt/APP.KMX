@@ -26,7 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\APP.KMX.Library\APP.KMX.Core.csproj" />
+    <ProjectReference Include="..\APP.KMX.Library\APP.KMX.Core.csproj" />
   </ItemGroup>
+
 
 </Project>
