@@ -8,18 +8,24 @@
     <h1>Faça login na sua conta</h1>
     <p>Por favor insira suas informações nos campos abaixo para a plataforma </p>
     <div class="login-card">
-
-        @* Parte Principal*@
         <div>
             <div class="text-area">
                 <p> Email</p>
                 @Html.TextBoxFor(a => a.Email, new { @class = "text-input" })
             </div>
-
-            <div >
-                <p> Senha</p>
-                @Html.TextBoxFor(a => a.Password, new { @class = "text-input password" })
+            <div class="password-container">
+                <p>Senha</p>
+                <div class="password-wrapper">
+                    @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password", id = "passwordField" })
+                    <button type="button" id="togglePassword" class="toggle-password">
+                        <img src="~/img/show-password-icon.svg" alt="Show Password" id="toggleIcon" />
+                    </button>
+                </div>
             </div>
+            @* <div >
+                <p> Senha</p>
+                @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password" })
+            </div> *@
 
             <div class="form-check" style="padding-top: 10px; padding-bottom: 10px;">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
@@ -50,11 +56,48 @@
         <div>
             <button class="login-facebook"> <img src="/img/button-icons/facebook-icon.svg" /> Continue com Facebook</button>
         </div>
-       
-       
     </div>
-
-
 </div>
 
 
+
+<style>
+    .password-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+        .password-wrapper input {
+            width: 100%;
+            padding-right: 40px; /* Space for the icon */
+        }
+
+    .toggle-password {
+        position: absolute;
+        right: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+        .toggle-password img {
+            width: 20px;
+            height: 20px;
+        }
+</style>
+
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function () {
+        var passwordField = document.getElementById("passwordField");
+        var toggleIcon = document.getElementById("toggleIcon");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleIcon.src = "/img/show-password-icon.svg"; // Change to 'hide' icon
+        } else {
+            passwordField.type = "password";
+            toggleIcon.src = "/img/show-password-icon.svg"; // Change back to 'show' icon
+        }
+    });
+</script>

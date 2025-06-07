@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\img\button-icons\facebook-icon.svg" />
+    <Content Remove="wwwroot\img\show-password-icon.svg" />
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\img\button-icons\facebook-icon.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\show-password-icon.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +22,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\img\button-icons\facebook-icon.svg" />
+    <None Include="wwwroot\img\show-password-icon.svg" />
   </ItemGroup>
 
   <ItemGroup>

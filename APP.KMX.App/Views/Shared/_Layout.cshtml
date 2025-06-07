@@ -47,9 +47,9 @@
                             <a asp-controller="Planos" asp-action="Index" class="nav-link">Planos</a>
                         </li>
                         <li class="nav-item p-2 dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">Ferramentas</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true" href="#">Ferramentas</a>
                             <ul class="dropdown-menu">
-                                <div class="container d-flex flex-row overflow-scroll" style="max-height:75vh; max-width:650px;" >
+                                <div class="container d-flex flex-column overflow-scroll" style="max-height:75vh; max-width:650px;" >
                                     @foreach (var card in cardList)
                                     {
                                         @Html.Partial("_ConversionButton", card);
