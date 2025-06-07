@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ClosedXML" Version="0.102.2" />
+		<PackageReference Include="CoordinateSharp" Version="2.22.1.1" />
+		<PackageReference Include="GeoCoordinate" Version="2.0.1" />
+		<PackageReference Include="GeoCoordinate.NetCore" Version="1.0.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+		<PackageReference Include="Proj4Net" Version="1.0.0" />
+		<PackageReference Include="ProjNET4GeoAPI" Version="1.4.1" />
+	</ItemGroup>
+
+</Project>
