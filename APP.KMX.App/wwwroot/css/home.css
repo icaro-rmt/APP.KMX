@@ -1,0 +1,185 @@
+/* ==============================================
+   HOME PAGE STYLES
+   ============================================== */
+
+/* CSS CUSTOM PROPERTIES (VARIABLES) */
+:root {
+    --primary-color: #590D82;
+    --gradient-start: #7F00FF;
+    --gradient-end: #E100FF;
+    --text-color-white: white;
+    --border-radius-button: 30px;
+    --spacing-small: 8px;
+    --spacing-medium: 10px;
+    --spacing-large: 20px;
+    --spacing-xl: 32px;
+    --button-width: 285px;
+    --button-height: 56px;
+}
+
+/* TYPOGRAPHY STYLES */
+.main-text {
+    text-align: justify;
+    text-justify: inter-character;
+}
+
+.main-text-primary {
+    color: var(--primary-color);
+}
+
+/* BUTTON AND FILE UPLOAD STYLES */
+.file-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-medium);
+}
+
+.button-selecionar {
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    /* Spacing */
+    padding: var(--spacing-large) var(--spacing-xl);
+    gap: var(--spacing-small);
+    
+    /* Dimensions */
+    width: var(--button-width);
+    height: var(--button-height);
+    
+    /* Appearance */
+    color: var(--text-color-white);
+    background: linear-gradient(125.74deg, var(--gradient-start) 0%, var(--gradient-end) 101.18%);
+    border-radius: var(--border-radius-button);
+    border: none;
+    cursor: pointer;
+    
+    /* Flexbox properties */
+    flex: none;
+    order: 3;
+    flex-grow: 0;
+    
+    /* Transition for better UX */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-selecionar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(127, 0, 255, 0.3);
+}
+
+.button-selecionar:active {
+    transform: translateY(0);
+}
+
+.button-selecionar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.upload-status {
+    min-height: 24px;
+    font-size: 14px;
+    color: var(--primary-color);
+    text-align: center;
+    font-weight: 500;
+}
+
+.upload-status.success {
+    color: #22c55e;
+}
+
+.upload-status.error {
+    color: #ef4444;
+}
+
+.upload-status.loading {
+    color: var(--primary-color);
+}
+
+/* Loading spinner */
+.upload-status.loading::after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    border: 2px solid var(--primary-color);
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* LAYOUT CONTAINERS */
+.container-side-by-side {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    gap: var(--spacing-large);
+}
+
+.container-side-by-side > div {
+    flex: 1;
+    margin: var(--spacing-medium);
+    text-align: center;
+}
+
+/* IMAGE STYLES */
+.container-side-by-side > div img {
+    max-width: 100%;
+    height: auto;
+}
+
+.pro-plan {
+    width: auto;
+    height: auto;
+    transition: transform 0.2s ease;
+}
+
+.pro-plan:hover {
+    transform: scale(1.02);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .container-side-by-side {
+        flex-direction: column;
+        height: auto;
+        padding: var(--spacing-large) 0;
+    }
+
+    .button-selecionar {
+        width: 100%;
+        max-width: var(--button-width);
+    }
+
+    .main-text {
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-side-by-side > div {
+        margin: var(--spacing-small);
+    }
+
+    .button-selecionar {
+        padding: 16px 24px;
+        font-size: 14px;
+    }
+
+    .file-upload-container {
+        width: 100%;
+    }
+}

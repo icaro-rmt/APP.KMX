@@ -4,6 +4,10 @@
     ViewData["Title"] = "Home Page";
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" />
+}
+
 <div class="text-center">
     
     <div class="container-side-by-side">
@@ -15,7 +19,13 @@
             <p class="main-text">Com uma interface intuitiva, o KMX simplica a conversão de dados de planilhas .xls para .kmz, permitindo que você cire mapas interativos e detalhados com
                 agilidade e precisão. Transforme suas coordenadas em mapas vibrantes de maneira rápida e eficiente.
             </p>
-            <button class="button-selecionar">Selecionar Arquivo <img src="img/upload-icon.svg" /></button>
+            <div class="file-upload-container">
+                <input type="file" id="fileInput" accept=".xls,.xlsx,.kml,.kmz" style="display: none;" />
+                <button class="button-selecionar" onclick="document.getElementById('fileInput').click()">
+                    Selecionar Arquivo <img src="img/upload-icon.svg" />
+                </button>
+                <div id="uploadStatus" class="upload-status" role="status" aria-live="polite"></div>
+            </div>
         </div>
         <div>
             <img src="img/main-page-img.svg" alt="KMZ Image"/>
@@ -32,7 +42,7 @@
             <div class="row" >
                 @foreach (var card in Model)
                 {
-                    @Html.Partial("_ConversionButton", card);
+                    <partial name="_ConversionButton" model="card" />
                 }
             </div>
         </section>
@@ -41,59 +51,13 @@
     </div>
     <div>
         <a asp-controller ="Planos" asp-action="Index" class="nav-link">
-
-        <img class="pro-plan"src="img/banner-plano-pro.svg" alt="Plano Pro" />
-            </a>
+            <img class="pro-plan"src="img/banner-plano-pro.svg" alt="Plano Pro" />
+        </a>
     </div>
 </div>
 
-<style>
-    .pro-plan{
-        width: auto;
-        height: auto;
-    }
-    .button-selecionar {
-        color: white;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 20px 32px;
-        gap: 8px;
-        width: 285px;
-        height: 56px;
-        background: linear-gradient(125.74deg, #7F00FF 0%, #E100FF 101.18%);
-        border-radius: 30px;
-        border-color: transparent;
-        flex: none;
-        order: 3;
-        flex-grow: 0;
-    }
-    .main-text {        
-        text-align: justify;
-        text-justify: inter-character;
-    }
-    .main-text-primary{
-        color: #590D82;
-    }
-
-    .container-side-by-side {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 100vh;
-    }
-
-        .container-side-by-side > div {
-            flex: 1;
-            margin: 10px;
-            text-align: center;
-        }
-
-            .container-side-by-side > div img {
-                max-width: 100%;
-                height: auto;
-            }
-</style>
+@section Scripts {
+    <script src="~/js/home.js"></script>
+}
 
 

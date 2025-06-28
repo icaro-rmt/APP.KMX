@@ -9,15 +9,14 @@ namespace APP.KMX.App.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly string _uploadFolder;
         private readonly IFileService _fileService;
-
-        private string filePath = string.Empty;
+        private readonly ILogger<FileController> _logger;
         
-        public FileController(IWebHostEnvironment webHostEnvironment, IFileService fileService )
+        public FileController(IWebHostEnvironment webHostEnvironment, IFileService fileService, ILogger<FileController> logger)
         {
             _webHostEnvironment = webHostEnvironment;
             _uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
             _fileService = fileService;
-
+            _logger = logger;
         }
         public IActionResult Index()
         {
@@ -30,100 +29,106 @@ namespace APP.KMX.App.Controllers
         {
             if (file == null || file.Length == 0)
             {
-                return BadRequest("No file Uploaded");
+                _logger.LogWarning("Upload attempted with no file");
+                return BadRequest("No file uploaded");
             }
 
-            return await this.ConverterKml(file);
+            return await ConvertFile(file);
         }
 
         [HttpPost]
-        public async Task<ActionResult> ConverterKml(IFormFile file)
+        public async Task<ActionResult> ConvertFile(IFormFile file)
         {
             try
             {
-                var uploadedFile = await _fileService.ConvertFileAsync(file, _uploadFolder);
-                filePath = uploadedFile;
-                string fileName = Path.GetFileName(filePath);
+                _logger.LogInformation("Starting file conversion for: {FileName}", file.FileName);
+                
+                var convertedFilePath = await _fileService.ConvertFileAsync(file, _uploadFolder);
+                
+                if (string.IsNullOrEmpty(convertedFilePath))
+                {
+                    _logger.LogError("File conversion failed - no output file generated");
+                    return StatusCode(500, "File conversion failed");
+                }
 
-                return await DownloadDocument(fileName);
+                var fileName = Path.GetFileName(convertedFilePath);
+                return await DownloadDocument(convertedFilePath, fileName);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception();
+                _logger.LogError(ex, "Error converting file: {FileName}", file.FileName);
+                return StatusCode(500, "An error occurred during file conversion");
             }
-
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> ConverterExcel(IFormFile file)
-        {
-            try
-            {
-                var uploadedFile = await _fileService.ConvertFileAsync(file, _uploadFolder);
-                filePath = uploadedFile;
-                string fileName = Path.GetFileName(filePath);
-
-                return await DownloadDocument(fileName);
-
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-
         }
 
         public ActionResult DownloadSampleDocument()
         {
-            string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "fileModels");
-            filePath = uploadFolder + "/modeloExcel.xlsx";
             try
             {
-                if (filePath != string.Empty)
+                string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "fileModels");
+                string sampleFilePath = Path.Combine(uploadFolder, "modeloExcel.xlsx");
+                
+                if (!System.IO.File.Exists(sampleFilePath))
                 {
-                    byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-
-                    return File(fileBytes, "application/octet-stream", "modeloExcel.xlsx");
-
+                    _logger.LogWarning("Sample file not found at: {Path}", sampleFilePath);
+                    return NotFound("Sample file not available");
                 }
-                return View(Index());
+
+                byte[] fileBytes = System.IO.File.ReadAllBytes(sampleFilePath);
+                return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "modeloExcel.xlsx");
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError(ex, "Error downloading sample document");
+                return StatusCode(500, "Error downloading sample file");
             }
-
         }
-        public async Task<ActionResult >DownloadDocument(string fileName)
+
+        public async Task<ActionResult> DownloadDocument(string filePath, string fileName)
         {
             try
             {
-                if (filePath != string.Empty)
+                if (string.IsNullOrEmpty(filePath) || !System.IO.File.Exists(filePath))
                 {
-                    var mimeType = "application/octet-stream"; // Default, use more specific type if known
-                    if (filePath.EndsWith(".pdf"))
-                        mimeType = "application/pdf";
-                    else if (filePath.EndsWith(".xls"))
-                        mimeType = "application/vnd.ms-excel";
-                    else if (filePath.EndsWith(".xlsx"))
-                        mimeType = "application/vnd.ms-excel";
-                    else if (filePath.EndsWith(".kml"))
-                        mimeType = "application/vnd.google-earth.kml+xml";
-                    else if (filePath.EndsWith(".kmz"))
-                        mimeType = "application/vnd.google-earth.kmz";
-
-                    byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
-
-                    return File(fileBytes, mimeType, fileName);
-
+                    _logger.LogWarning("File not found: {FilePath}", filePath);
+                    return NotFound("File not found");
                 }
-                return View(Index());
+
+                var mimeType = GetMimeType(filePath);
+                byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+
+                // Clean up the file after reading
+                try
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to delete temporary file: {FilePath}", filePath);
+                }
+
+                return File(fileBytes, mimeType, fileName);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError(ex, "Error downloading document: {FilePath}", filePath);
+                return StatusCode(500, "Error downloading file");
             }
+        }
 
+        private static string GetMimeType(string filePath)
+        {
+            var extension = Path.GetExtension(filePath).ToLowerInvariant();
+            
+            return extension switch
+            {
+                ".pdf" => "application/pdf",
+                ".xls" => "application/vnd.ms-excel",
+                ".xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                ".kml" => "application/vnd.google-earth.kml+xml",
+                ".kmz" => "application/vnd.google-earth.kmz",
+                _ => "application/octet-stream"
+            };
         }
 
     }

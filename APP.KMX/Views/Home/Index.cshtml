@@ -10,8 +10,268 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
+    /* ==============================================
+       CSS CUSTOM PROPERTIES (VARIABLES)
+       ============================================== */
+    :root {
+        --primary-color: rebeccapurple;
+        --background-white: #FFFFFF;
+        --text-color-dark: #333333;
+        --text-color-light: #666666;
+        --border-color: #dee2e6;
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --border-radius: 8px;
+        --spacing-small: 8px;
+        --spacing-medium: 16px;
+        --spacing-large: 24px;
+        --spacing-xl: 32px;
+        --spacing-xxl: 48px;
+        --transition-smooth: all 0.3s ease;
+        --top-padding: 825px;
+    }
+
+    /* ==============================================
+       LAYOUT ADJUSTMENTS
+       ============================================== */
     body {
-        padding-top: 825px; /* Adjust the value as needed */
+        padding-top: var(--top-padding);
+        background-color: var(--background-white);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* ==============================================
+       HEADER SECTION
+       ============================================== */
+    .text-center {
+        text-align: center;
+    }
+
+    .text-center img {
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 12px var(--shadow-color);
+        transition: var(--transition-smooth);
+    }
+
+    .text-center img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .h3 {
+        color: var(--text-color-dark);
+        font-weight: 700;
+        margin-bottom: var(--spacing-medium);
+    }
+
+    .h5 {
+        color: var(--primary-color);
+        line-height: 1.6;
+        margin-bottom: var(--spacing-large);
+    }
+
+    /* ==============================================
+       VIDEO SECTION
+       ============================================== */
+    .embed-responsive {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: 0 4px 12px var(--shadow-color);
+        transition: var(--transition-smooth);
+        margin-bottom: var(--spacing-large);
+    }
+
+    .embed-responsive:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .embed-responsive-item {
+        border: none;
+    }
+
+    /* ==============================================
+       CONTAINER ENHANCEMENTS
+       ============================================== */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-medium);
+    }
+
+    .row {
+        margin: 0 -var(--spacing-small);
+    }
+
+    .row > * {
+        padding: 0 var(--spacing-small);
+        margin-bottom: var(--spacing-medium);
+    }
+
+    /* ==============================================
+       FORM STYLING
+       ============================================== */
+    #formContainer {
+        background: var(--background-white);
+        border-radius: var(--border-radius);
+        padding: var(--spacing-large);
+        box-shadow: 0 4px 12px var(--shadow-color);
+        margin-top: var(--spacing-large);
+        transition: var(--transition-smooth);
+    }
+
+    #formContainer:not(.d-none) {
+        animation: slideIn 0.3s ease-out;
+    }
+
+    @@keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-control {
+        border-radius: var(--border-radius);
+        border: 2px solid var(--border-color);
+        padding: var(--spacing-medium);
+        font-size: 16px;
+        transition: var(--transition-smooth);
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
+        outline: none;
+    }
+
+    .form-control:hover {
+        border-color: var(--primary-color);
+    }
+
+    /* ==============================================
+       BUTTON STYLING
+       ============================================== */
+    .btn {
+        border-radius: var(--border-radius);
+        padding: var(--spacing-medium) var(--spacing-xl);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: var(--transition-smooth);
+        border: none;
+    }
+
+    .btn-primary {
+        background-color: var(--background-white);
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-color);
+        color: var(--background-white);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 51, 153, 0.3);
+    }
+
+    .btn-primary:active {
+        transform: translateY(0);
+    }
+
+    .btn-lg {
+        padding: var(--spacing-large) var(--spacing-xxl);
+        font-size: 18px;
+    }
+
+    .btn-block {
+        width: 100%;
+        display: block;
+    }
+
+    /* ==============================================
+       UTILITY CLASSES
+       ============================================== */
+    .mb-2 { margin-bottom: var(--spacing-small); }
+    .mb-3 { margin-bottom: var(--spacing-medium); }
+    .mb-6 { margin-bottom: var(--spacing-xl); }
+    .mt-3 { margin-top: var(--spacing-medium); }
+
+    .d-none {
+        display: none !important;
+    }
+
+    .font-weight-normal {
+        font-weight: 400;
+    }
+
+    hr {
+        border: none;
+        border-top: 2px solid var(--border-color);
+        margin: var(--spacing-large) 0;
+        opacity: 0.5;
+    }
+
+    /* ==============================================
+       RESPONSIVE DESIGN
+       ============================================== */
+    @@media (max-width: 768px) {
+        body {
+            padding-top: 600px;
+        }
+
+        .text-center img {
+            width: 250px;
+            height: 250px;
+        }
+
+        .container {
+            padding: 0 var(--spacing-medium);
+        }
+
+        .h3 {
+            font-size: 24px;
+        }
+
+        .h5 {
+            font-size: 18px;
+        }
+
+        #formContainer {
+            margin: var(--spacing-medium);
+            padding: var(--spacing-medium);
+        }
+    }
+
+    @@media (max-width: 480px) {
+        body {
+            padding-top: 400px;
+        }
+
+        .text-center img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .h3 {
+            font-size: 20px;
+        }
+
+        .h5 {
+            font-size: 16px;
+        }
+
+        .btn-lg {
+            padding: var(--spacing-medium) var(--spacing-large);
+            font-size: 16px;
+        }
+
+        .embed-responsive {
+            margin-bottom: var(--spacing-medium);
+        }
     }
 </style>
  

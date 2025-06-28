@@ -1,0 +1,129 @@
+/* ==============================================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   ============================================== */
+:root {
+    --gradient-start: #7F00FF;
+    --gradient-end: #E100FF;
+    --text-color-white: white;
+    --border-radius-button: 30px;
+    --spacing-small: 10px;
+    --spacing-large: 20px;
+    --spacing-xl: 32px;
+    --button-width: 185px;
+    --button-height: 56px;
+    --transition-smooth: all 0.3s ease;
+}
+
+/* ==============================================
+   NAVIGATION BUTTON STYLES
+   ============================================== */
+.register-button {
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    /* Spacing */
+    padding: var(--spacing-large) var(--spacing-xl);
+    gap: var(--spacing-small);
+    
+    /* Dimensions */
+    width: var(--button-width);
+    height: var(--button-height);
+    
+    /* Appearance */
+    background: linear-gradient(125.74deg, var(--gradient-start) 0%, var(--gradient-end) 101.18%);
+    border-radius: var(--border-radius-button);
+    border: none;
+    
+    /* Flexbox properties */
+    flex: none;
+    order: 5;
+    flex-grow: 0;
+    
+    /* Animation */
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.register-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(127, 0, 255, 0.4);
+    background: linear-gradient(125.74deg, #8A1AFF 0%, #E91AFF 101.18%);
+}
+
+.register-button:active {
+    transform: translateY(0);
+}
+
+/* ==============================================
+   TEXT STYLES
+   ============================================== */
+.register-text {
+    color: var(--text-color-white);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.register-text:hover {
+    color: var(--text-color-white);
+    text-decoration: none;
+}
+
+/* ==============================================
+   NAVIGATION ENHANCEMENTS
+   ============================================== */
+.navbar {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    transition: var(--transition-smooth);
+}
+
+.nav-link {
+    transition: var(--transition-smooth);
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: var(--gradient-start) !important;
+    transform: translateY(-1px);
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+/* ==============================================
+   RESPONSIVE DESIGN
+   ============================================== */
+@media (max-width: 768px) {
+    .register-button {
+        width: 100%;
+        max-width: var(--button-width);
+        margin-top: var(--spacing-small);
+    }
+
+    .dropdown-menu .container {
+        max-height: 50vh !important;
+        max-width: 320px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .register-button {
+        padding: 16px 24px;
+        font-size: 14px;
+        width: auto;
+        min-width: 140px;
+    }
+
+    .navbar-brand img {
+        height: 40px;
+        width: auto;
+    }
+}
