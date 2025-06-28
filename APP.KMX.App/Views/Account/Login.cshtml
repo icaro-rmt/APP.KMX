@@ -8,7 +8,7 @@
     <h1>Faça login na sua conta</h1>
     <p>Por favor insira suas informações nos campos abaixo para a plataforma </p>
     <div class="login-card">
-        <div>
+        <div class="form-container">
             <div class="text-area">
                 <p> Email</p>
                 @Html.TextBoxFor(a => a.Email, new { @class = "text-input" })
@@ -126,7 +126,7 @@
     .login-card {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         padding: var(--spacing-huge) var(--spacing-xxxl);
         gap: var(--spacing-xl);
         width: 100%;
@@ -139,6 +139,14 @@
         order: 1;
         flex-grow: 0;
         transition: var(--transition-smooth);
+    }
+
+    .form-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-medium);
     }
 
     .login-card:hover {
@@ -155,7 +163,6 @@
         align-items: flex-start;
         padding: 0;
         width: 100%;
-        max-width: var(--input-width);
         height: auto;
         flex: none;
         order: 0;
@@ -179,7 +186,6 @@
         padding: var(--spacing-medium) var(--spacing-large);
         gap: var(--spacing-small);
         width: 100%;
-        max-width: var(--input-width);
         height: var(--input-height);
         background: var(--background-white);
         border: 1px solid var(--border-color);
@@ -207,7 +213,6 @@
        ============================================== */
     .password-container {
         width: 100%;
-        max-width: var(--input-width);
         margin-bottom: var(--spacing-medium);
     }
 
@@ -272,7 +277,6 @@
         padding: var(--spacing-large) var(--spacing-xxl);
         gap: var(--spacing-small);
         width: 100%;
-        max-width: var(--button-width);
         height: var(--button-height);
         background: var(--primary-color);
         border: none;
@@ -301,7 +305,6 @@
         font-size: 18px;
         font-weight: 500;
         width: 100%;
-        max-width: var(--button-width);
         height: var(--button-height);
         background: var(--background-white);
         border: 1px solid var(--border-color-light);
@@ -371,6 +374,7 @@
         font-size: 14px;
         cursor: pointer;
         transition: var(--transition-smooth);
+        justify-content: center;
         text-decoration: underline;
     }
 
@@ -398,11 +402,11 @@
         .login-button,
         .login-google,
         .login-facebook {
-            max-width: 100%;
+            width: 100%;
         }
 
         .password-container {
-            max-width: 100%;
+            width: 100%;
         }
     }
 
