@@ -1,10 +1,15 @@
-﻿@model ConversionButtonModel
+﻿@using APP.KMX.App.Models
+@model ConversionButtonModel
 
 @{
     ViewData["Title"] = "Converter Arquivo";
 }
 
-<div class="main-card">
+@section Styles {
+    <link rel="stylesheet" href="~/css/file-conversion.css" asp-append-version="true" />
+}
+
+<div class="file-conversion-main-card">
     <div class="main-card">
         <div>
             <h1>
@@ -32,182 +37,6 @@
         </div>
     </div>
 </div>
-
-
-<style>
-    /* ==============================================
-       CSS CUSTOM PROPERTIES (VARIABLES)
-       ============================================== */
-    :root {
-        --primary-color: #590D82;
-        --primary-color-dark: #3A0E66;
-        --background-white: #FFFFFF;
-        --background-highlight: #f3f0ff;
-        --text-color-dark: #333333;
-        --shadow-color: rgba(112, 144, 176, 0.15);
-        --border-dashed: 1px dashed var(--primary-color);
-        --border-radius-card: 24px;
-        --border-radius-small: 8px;
-        --spacing-small: 12px;
-        --spacing-medium: 16px;
-        --spacing-large: 24px;
-        --card-width: 550px;
-        --card-height: 345px;
-        --drag-drop-width: 502px;
-        --drag-drop-height: 176px;
-    }
-
-    /* ==============================================
-       LAYOUT CONTAINERS
-       ============================================== */
-    .main-card {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        padding: var(--spacing-large);
-    }
-
-    /* ==============================================
-       CARD COMPONENTS
-       ============================================== */
-    .upload-card {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: var(--spacing-large);
-        gap: var(--spacing-medium);
-        width: var(--card-width);
-        height: var(--card-height);
-        background: var(--background-white);
-        box-shadow: 3px 7px 30px var(--shadow-color);
-        border-radius: var(--border-radius-card);
-        flex: none;
-        order: 1;
-        flex-grow: 0;
-        transition: box-shadow 0.3s ease;
-    }
-
-    .upload-card:hover {
-        box-shadow: 3px 7px 40px rgba(112, 144, 176, 0.25);
-    }
-
-    /* ==============================================
-       DRAG & DROP COMPONENT
-       ============================================== */
-    .drag-n-drop {
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: var(--spacing-large);
-        gap: var(--spacing-small);
-        width: var(--drag-drop-width);
-        height: var(--drag-drop-height);
-        background: var(--background-white);
-        border: var(--border-dashed);
-        border-radius: var(--border-radius-small);
-        flex: none;
-        order: 1;
-        align-self: stretch;
-        flex-grow: 0;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: 600;
-        color: var(--primary-color);
-    }
-
-    .drag-n-drop:hover {
-        border-color: var(--primary-color-dark);
-        background-color: var(--background-highlight);
-        transform: translateY(-2px);
-    }
-
-    .drag-n-drop img {
-        width: 48px;
-        height: 48px;
-        opacity: 0.8;
-        transition: opacity 0.3s ease;
-    }
-
-    .drag-n-drop:hover img {
-        opacity: 1;
-    }
-
-    /* ==============================================
-       DRAG STATE STYLES
-       ============================================== */
-    .dragging {
-        border-color: var(--primary-color-dark);
-        background-color: var(--background-highlight);
-        transform: scale(1.02);
-        box-shadow: 0 4px 20px rgba(90, 13, 130, 0.2);
-    }
-
-    /* ==============================================
-       TYPOGRAPHY
-       ============================================== */
-    .upload-card h2 {
-        color: var(--text-color-dark);
-        margin-bottom: var(--spacing-small);
-    }
-
-    .upload-card p {
-        color: #666666;
-        margin: 0;
-        line-height: 1.5;
-    }
-
-    .drag-n-drop p {
-        margin: 0;
-        font-size: 14px;
-        color: #888888;
-        font-weight: normal;
-    }
-
-    /* ==============================================
-       RESPONSIVE DESIGN
-       ============================================== */
-    @@media (max-width: 768px) {
-        .main-card {
-            height: auto;
-            padding: var(--spacing-medium);
-        }
-
-        .upload-card {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            min-height: var(--card-height);
-        }
-
-        .drag-n-drop {
-            width: 100%;
-            height: auto;
-            min-height: 150px;
-        }
-    }
-
-    @@media (max-width: 480px) {
-        .upload-card {
-            padding: var(--spacing-medium);
-            max-width: 320px;
-        }
-
-        .drag-n-drop {
-            padding: var(--spacing-medium);
-            min-height: 120px;
-        }
-
-        .drag-n-drop img {
-            width: 36px;
-            height: 36px;
-        }
-    }
-</style>
 
 <script>
     const dropArea = document.getElementById('drag-drop');

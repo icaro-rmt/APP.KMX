@@ -4,8 +4,11 @@
     ViewData["Title"] = "Planos";
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/planos.css" asp-append-version="true" />
+}
 
-<div class="main-card">
+<div class="planos-main-card">
     <div class="main-card">
         <div>
             <h1>
@@ -13,10 +16,10 @@
             </h1>
         </div>        
 
-        <div class="plan-main-card" style="gap:10px;">
+        <div class="plan-main-card plan-main-card-spaced">
 
             @* CARD *@
-            <div class="card-body" style="border-radius: 10px;background-color:#FAF8FB; height:100%">
+            <div class="planos-card-body light-background plan-card-rounded">
                 Plano Gratuito
                 <div class="plan-title-container">
                     <div><img src="~/img/plano-gratuito-icon.svg" alt="Alternate Text" /></div>
@@ -30,19 +33,19 @@
                     </div>
                 </div>
                 <div class="justify-content-evenly">
-                    <div class="plan-description" style="gap:5px;">
+                    <div class="plan-description plan-description-spaced">
                         <div><img src="~/img/green-check.svg" /></div>
                         <div>A quantidade de conversões são ilimitados.</div>
                     </div>
-                    <div class="plan-description" style="gap:5px;">
+                    <div class="plan-description plan-description-spaced">
                         <div><img src="~/img/green-check.svg" /></div>
                         <div>2 conversões por mês</div>
                     </div>
-                    <div class="plan-description" style="gap:5px;">
+                    <div class="plan-description plan-description-spaced">
                         <div><img src="~/img/green-check.svg" /></div>
                         <div>Formatos permitidos apenas tabelas .xls em mapas .kmz</div>
                     </div>
-                    <div class="plan-description" style="gap:5px;">
+                    <div class="plan-description plan-description-spaced">
                         <div><img src="~/img/green-check.svg" /></div>
                         <div>
                             Quantidade de usuário(s)<br />
@@ -55,7 +58,7 @@
             </div>
 
 
-            <div class="card-body" style="height:100%">
+            <div class="planos-card-body plan-card-full-height">
                 Plano KMX Pro
                 <div class ="d-flex flex-row justify-content-center">
                     <div class="plan-title-container">
@@ -71,19 +74,19 @@
                     </div>
                 </div>
                 <div class="justify-content-evenly">
-                    <div class="plan-description" style="gap:5px;">
+                    <div class="plan-description plan-description-spaced">
                         <div><img src="~/img/green-check.svg" /></div>
                         <div>A quantidade de conversões são ilimitados.</div>
                     </div>
-                    <div class="plan-description" style="gap:5px;">
+                    <div class="plan-description plan-description-spaced">
                         <div><img src="~/img/green-check.svg" /></div>
                         <div>2 conversões por mês</div>
                     </div>
-                    <div class="plan-description" style="gap:5px;">
+                    <div class="plan-description plan-description-spaced">
                         <div><img src="~/img/green-check.svg" /></div>
                         <div>Formatos permitidos apenas tabelas .xls em mapas .kmz</div>
                     </div>
-                    <div class="plan-description" style="gap:5px;">
+                    <div class="plan-description plan-description-spaced">
                         <div><img src="~/img/green-check.svg" /></div>
                         <div>
                             Quantidade de usuário(s)<br />
@@ -92,265 +95,8 @@
                     </div>
                 </div>
                 <div> preco e afins</div>
-                <button class="login-button">Assine Agora</button>
+                <button class="planos-login-button">Assine Agora</button>
             </div>
         </div>
     </div>
 </div>
-
-<style>
-    /* ==============================================
-       CSS CUSTOM PROPERTIES (VARIABLES)
-       ============================================== */
-    :root {
-        --primary-color: #590D82;
-        --background-white: #FFFFFF;
-        --background-light: #FAF8FB;
-        --border-color: #EFF0F7;
-        --shadow-color: rgba(112, 144, 176, 0.15);
-        --shadow-color-hover: rgba(112, 144, 176, 0.25);
-        --border-radius-card: 22px;
-        --border-radius-small: 15px;
-        --border-radius-medium: 10px;
-        --spacing-xs: 4px;
-        --spacing-small: 5px;
-        --spacing-medium: 10px;
-        --spacing-large: 20px;
-        --font-family: 'Inter', sans-serif;
-        --font-size-title: 32px;
-        --line-height-title: 120%;
-        --transition-smooth: all 0.3s ease;
-    }
-
-    /* ==============================================
-       LAYOUT CONTAINERS
-       ============================================== */
-    .main-card {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-        padding: var(--spacing-large);
-    }
-
-    /* ==============================================
-       PLAN CARD COMPONENTS
-       ============================================== */
-    .plan-main-card {
-        /* Layout */
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        
-        /* Spacing */
-        padding: var(--spacing-large);
-        gap: var(--spacing-medium);
-        
-        /* Dimensions */
-        width: 100%;
-        max-width: 906px;
-        height: auto;
-        min-height: 711px;
-        
-        /* Appearance */
-        background: var(--background-white);
-        border-left: 1px solid var(--border-color);
-        box-shadow: 3px 7px 30px var(--shadow-color);
-        border-radius: var(--border-radius-card);
-        
-        /* Flexbox properties */
-        flex: none;
-        order: 2;
-        flex-grow: 0;
-        
-        /* Animation */
-        transition: var(--transition-smooth);
-    }
-
-    .plan-main-card:hover {
-        box-shadow: 3px 7px 30px var(--shadow-color-hover);
-        transform: translateY(-5px);
-    }
-
-    .plan-card {
-        /* Layout */
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        
-        /* Spacing */
-        padding: 0;
-        gap: var(--spacing-small);
-        
-        /* Dimensions */
-        width: 100%;
-        max-width: 423px;
-        height: auto;
-        min-height: 671px;
-        
-        /* Appearance */
-        border-radius: var(--border-radius-small);
-        
-        /* Flexbox properties */
-        flex: none;
-        order: 1;
-        flex-grow: 0;
-    }
-
-    /* ==============================================
-       PLAN CONTENT COMPONENTS
-       ============================================== */
-    .plan-title-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        margin-bottom: var(--spacing-large);
-    }
-
-    .plan-title {
-        /* Typography */
-        font-family: var(--font-family);
-        font-style: normal;
-        font-weight: 700;
-        font-size: var(--font-size-title);
-        line-height: var(--line-height-title);
-        
-        /* Color */
-        color: var(--primary-color);
-        
-        /* Layout */
-        flex: none;
-        order: 0;
-        flex-grow: 0;
-        margin: 0;
-    }
-
-    .plan-description {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        margin: var(--spacing-xs);
-        gap: var(--spacing-small);
-        padding: var(--spacing-small) 0;
-        transition: var(--transition-smooth);
-    }
-
-    .plan-description:hover {
-        background-color: rgba(89, 13, 130, 0.05);
-        border-radius: var(--spacing-small);
-        padding: var(--spacing-small);
-        margin: var(--spacing-xs) -var(--spacing-small);
-    }
-
-    /* ==============================================
-       CARD STYLING
-       ============================================== */
-    .card-body {
-        padding: var(--spacing-large);
-        border-radius: var(--border-radius-medium);
-        transition: var(--transition-smooth);
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-medium);
-    }
-
-    .card-body[style*="background-color:#FAF8FB"] {
-        background-color: var(--background-light) !important;
-    }
-
-    .card-body:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    /* ==============================================
-       IMAGE ENHANCEMENTS
-       ============================================== */
-    .plan-title-container img,
-    .plan-description img {
-        transition: var(--transition-smooth);
-    }
-
-    .plan-description:hover img {
-        transform: scale(1.1);
-    }
-
-    /* ==============================================
-       BUTTON STYLES
-       ============================================== */
-    .login-button {
-        margin-top: auto;
-        padding: 12px 24px;
-        background: linear-gradient(125.74deg, #7F00FF 0%, #E100FF 101.18%);
-        color: white;
-        border: none;
-        border-radius: 30px;
-        font-weight: 600;
-        transition: var(--transition-smooth);
-        cursor: pointer;
-    }
-
-    .login-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(127, 0, 255, 0.4);
-    }
-
-    /* ==============================================
-       RESPONSIVE DESIGN
-       ============================================== */
-    @@media (max-width: 768px) {
-        .plan-main-card {
-            flex-direction: column;
-            width: 100%;
-            height: auto;
-            padding: var(--spacing-medium);
-        }
-
-        .plan-card {
-            width: 100%;
-            max-width: none;
-        }
-
-        .plan-title-container {
-            flex-direction: column;
-            text-align: center;
-            gap: var(--spacing-medium);
-        }
-
-        .plan-title {
-            font-size: 24px;
-        }
-    }
-
-    @@media (max-width: 480px) {
-        .main-card {
-            padding: var(--spacing-medium);
-        }
-
-        .plan-main-card {
-            padding: var(--spacing-medium);
-            gap: var(--spacing-medium);
-        }
-
-        .card-body {
-            padding: var(--spacing-medium);
-        }
-
-        .plan-title {
-            font-size: 20px;
-        }
-
-        .plan-description {
-            flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-        }
-    }
-</style>

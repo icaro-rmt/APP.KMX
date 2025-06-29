@@ -4,6 +4,9 @@
     var disabled = true;
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+}
 
 <div class="main-card">
     <h1>Criar uma conta</h1>
@@ -14,15 +17,15 @@
         <form>
             <div>
                 <div class="text-area">
-                    <p style="font-weight:500;">Nome Completo</p>
+                    <p class="form-label-medium">Nome Completo</p>
                     @Html.TextBoxFor(a => a.Name, new { @class = "text-input" })
                 </div>
                 <div class="text-area">
-                    <p style="font-weight:500;"> Email</p>
+                    <p class="form-label-medium"> Email</p>
                     @Html.TextBoxFor(a => a.Email, new { @class = "text-input" })
                 </div>
                 <div class="input-group mb-2">
-                    <p style="font-weight:500;"> Senha</p>
+                    <p class="form-label-medium"> Senha</p>
                     @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password", id = "passwordField" })
                     <div class="input-group-append">
                         <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
@@ -41,13 +44,13 @@
                 </div>
                 <hr />
                 <div>
-                    <div class="form-check" style="padding-top: 10px; padding-bottom: 10px;">
+                    <div class="form-check form-check-spaced">
                         <input class="form-check-input" type="checkbox" value="" id="termsCheckbox">
                         <label class="form-check-label" for="flexCheckIndeterminate">
                             Eu concordo com os <a href="#">termos de uso</a> e <a href="#">política de privacidade</a>
                         </label>
                     </div>
-                    <div class="form-check" style="padding-top: 10px; padding-bottom: 10px;">
+                    <div class="form-check form-check-spaced">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
                         <label class="form-check-label" for="flexCheckIndeterminate">
                             Lembrar meus dados de acesso
