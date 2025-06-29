@@ -204,7 +204,8 @@
 
 .password-wrapper input {
     width: 100%;
-    padding-right: 50px; /* Space for the toggle button */
+    padding-right: 50px;
+    /* Space for the toggle button */
 }
 
 .toggle-password {
@@ -233,6 +234,13 @@
 
 .toggle-password:hover img {
     transform: scale(1.1);
+}
+
+.create-account-password-validation-container {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    align-items: start;
 }
 
 /* ==============================================
@@ -269,6 +277,36 @@
 
 .login-button:active {
     transform: translateY(0);
+}
+
+/* Disabled Login Button */
+.login-button-disabled {
+    color: #999999;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-large) var(--spacing-xxl);
+    gap: var(--spacing-small);
+    width: 100%;
+    height: var(--button-height);
+    background: #E0E0E0;
+    border: none;
+    border-radius: var(--border-radius-button);
+    flex: none;
+    order: 3;
+    align-self: stretch;
+    flex-grow: 0;
+    cursor: not-allowed;
+    transition: var(--transition-smooth);
+}
+
+.login-button-disabled:hover {
+    background: #E0E0E0;
+    transform: none;
+    box-shadow: none;
 }
 
 /* Social Login Buttons */
