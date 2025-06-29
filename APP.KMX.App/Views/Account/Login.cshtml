@@ -20,12 +20,13 @@
                 <p>Senha</p>
                 <div class="password-wrapper">
                     @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password", id = "passwordField" })
+                    
                     <button type="button" id="togglePassword" class="toggle-password">
                         <img src="~/img/show-password-icon.svg" alt="Show Password" id="toggleIcon" />
                     </button>
                 </div>
             </div>
-            @* <div >
+            @* <div > 
                 <p> Senha</p>
                 @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password" })
             </div> *@
