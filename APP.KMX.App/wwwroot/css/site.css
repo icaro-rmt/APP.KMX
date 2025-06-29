@@ -158,3 +158,40 @@ body {
     align-self: stretch;
     flex-grow: 0;
 }
+
+/* Ferramentas Dropdown Styling */
+.ferramentas-dropdown {
+    min-width: 420px;
+    max-width: 500px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 8px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ferramentas-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ferramentas-dropdown::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.ferramentas-dropdown::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.ferramentas-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+@media (max-width: 768px) {
+    .ferramentas-dropdown {
+        min-width: 300px;
+        max-width: 350px;
+    }
+}

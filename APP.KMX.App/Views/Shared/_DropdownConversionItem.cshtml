@@ -1,0 +1,111 @@
+@using APP.KMX.App.Models
+@model ConversionButtonModel
+
+<li class="dropdown-item-wrapper">
+    <form asp-action="FileConversion" asp-controller="Home" method="post" class="dropdown-conversion-form">
+        <input type="hidden" name="Title" value="@Model.Title" />
+        <input type="hidden" name="IconClass" value="@Model.IconClass" />
+        <input type="hidden" name="Link" value="@Model.Link" />
+        <input type="hidden" name="ConvertFrom" value="@Model.ConvertFrom" />
+        <input type="hidden" name="ConvertTo" value="@Model.ConvertTo" />
+        <button type="submit" class="dropdown-item conversion-dropdown-item">
+            <div class="dropdown-item-content">
+                <img src="~/img/button-icons/@Model.IconClass" class="file-type-icon" alt="@Model.ConvertFrom to @Model.ConvertTo" />
+                <span class="conversion-text">@Model.Title</span>
+                <img src="~/img/button-icons/arrow-link.svg" class="arrow-icon" alt="Convert" />
+            </div>
+        </button>
+    </form>
+</li>
+
+<style>
+    .dropdown-item-wrapper {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .dropdown-item-wrapper:last-child {
+        border-bottom: none;
+    }
+
+    .dropdown-conversion-form {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .conversion-dropdown-item {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 12px 16px;
+        background: transparent;
+        border: none;
+        text-align: left;
+        transition: background-color 0.2s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .conversion-dropdown-item:hover {
+        background-color: #f8f9fa;
+        color: #590D82;
+    }
+
+    .dropdown-item-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .file-type-icon {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+    }
+
+    .conversion-text {
+        flex: 1;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.4;
+        text-align: left;
+    }
+
+    .arrow-icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        opacity: 0.6;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .conversion-dropdown-item:hover .arrow-icon {
+        opacity: 1;
+        transform: translateX(2px);
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .conversion-text {
+            font-size: 13px;
+        }
+        
+        .conversion-dropdown-item {
+            padding: 10px 12px;
+        }
+        
+        .dropdown-item-content {
+            gap: 8px;
+        }
+        
+        .file-type-icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+</style>

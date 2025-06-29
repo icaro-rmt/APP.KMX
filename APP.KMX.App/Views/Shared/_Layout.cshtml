@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using APP.KMX.App.Models
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -49,27 +50,13 @@
                             <a asp-controller="Planos" asp-action="Index" class="nav-link">Planos</a>
                         </li>
                         <li class="nav-item p-2 dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true" href="#">Ferramentas</a>
-                            <ul class="dropdown-menu">
-                                <div class="container d-flex flex-column overflow-scroll" style="max-height:75vh; max-width:650px;" >
-                                    @foreach (var card in cardList)
-                                    {
-                                        <partial name="_ConversionButton" model="card" />
-                                    }
-                                </div>
-                                @* <li><a class="dropdown-item" href="#">Item 1</a></li>
-                                <li><a class="dropdown-item" href="#">Item 2</a></li> *@
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">Ferramentas</a>
+                            <ul class="dropdown-menu ferramentas-dropdown">
+                                @foreach (var card in cardList)
+                                {
+                                    <partial name="_DropdownConversionItem" model="card" />
+                                }
                             </ul>
-                        </li>
-                       @*  <li class="nav-item p-2 dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Links
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Item 1</a></li>
-                                <li><a class="dropdown-item" href="#">Item 2</a></li>
-                            </ul>
-                        </li> *@
                         <li class="nav-item p-2">
                             <a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link">Entrar</a>
                         </li>

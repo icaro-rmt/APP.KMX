@@ -50,11 +50,11 @@
             </div>
         </div>
 
-        <div>
-            <button class="login-google" > <img src="/img/button-icons/google-icon.svg"/> Continue com Google</button>
+        <div class="social-buttons-container">
+            <button class="login-google"><img src="/img/button-icons/google-icon.svg"/> Continue com Google</button>
         </div>
-        <div>
-            <button class="login-facebook"> <img src="/img/button-icons/facebook-icon.svg" /> Continue com Facebook</button>
+        <div class="social-buttons-container">
+            <button class="login-facebook"><img src="/img/button-icons/facebook-icon.svg" /> Continue com Facebook</button>
         </div>
     </div>
 </div>
@@ -147,6 +147,12 @@
         flex-direction: column;
         align-items: stretch;
         gap: var(--spacing-medium);
+    }
+
+    .social-buttons-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .login-card:hover {
@@ -305,6 +311,7 @@
         font-size: 18px;
         font-weight: 500;
         width: 100%;
+        min-width: 0;
         height: var(--button-height);
         background: var(--background-white);
         border: 1px solid var(--border-color-light);
@@ -317,6 +324,9 @@
         cursor: pointer;
         transition: var(--transition-smooth);
         margin-bottom: var(--spacing-medium);
+        box-sizing: border-box;
+        white-space: nowrap;
+        text-align: center;
     }
 
     .login-google:hover,
