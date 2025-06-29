@@ -1,7 +1,6 @@
-﻿@model UserModel
+﻿@model RegisterModel
 @{
     ViewData["Title"] = "Cadastro";
-    var disabled = true;
 }
 
 @section Styles {
@@ -12,28 +11,39 @@
     <h1>Criar uma conta</h1>
     <p>Seja bem-vindo, preencha os dados abaixo para criação da conta</p>
     <div class="create-account-card">
-
-        @* Parte Principal*@
-        <form>
+        <form asp-action="Register" method="post">
+            @Html.AntiForgeryToken()
+            
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
             <div>
                 <div class="text-area">
                     <p class="form-label-medium">Nome Completo</p>
-                    @Html.TextBoxFor(a => a.Name, new { @class = "text-input" })
+                    <input asp-for="Name" class="text-input" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
+                
                 <div class="text-area">
-                    <p class="form-label-medium"> Email</p>
-                    @Html.TextBoxFor(a => a.Email, new { @class = "text-input" })
+                    <p class="form-label-medium">Email</p>
+                    <input asp-for="Email" class="text-input" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
+
                 <div class="input-group mb-2">
-                    <p class="form-label-medium"> Senha</p>
-                    @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password", id = "passwordField" })
+                    <p class="form-label-medium">Senha</p>
+                    <input asp-for="Password" class="text-input password" type="password" id="passwordField" />
                     <div class="input-group-append">
                         <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
                              <img src="~/img/show-password-icon.svg" alt="Show Password" id="toggleIcon" />
                         </button>
                     </div>
-                    @Html.ValidationMessageFor(a => a.Password)
                     <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="text-area">
+                    <p class="form-label-medium">Confirmar Senha</p>
+                    <input asp-for="ConfirmPassword" class="text-input password" type="password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
 
                 <div class="create-account-password-validation-container">
@@ -50,44 +60,40 @@
                         <img src="~/img/validation-icons/info.svg" /> Tenha pelo menos 8 caracteres em sua senha
                     </div>
                 </div>
+                
                 <hr />
+                
                 <div>
                     <div class="form-check form-check-spaced">
-                        <input class="form-check-input" type="checkbox" value="" id="termsCheckbox">
-                        <label class="form-check-label" for="flexCheckIndeterminate">
+                        <input asp-for="AgreeToTerms" class="form-check-input" type="checkbox" id="termsCheckbox">
+                        <label asp-for="AgreeToTerms" class="form-check-label">
                             Eu concordo com os <a href="#">termos de uso</a> e <a href="#">política de privacidade</a>
                         </label>
+                        <span asp-validation-for="AgreeToTerms" class="text-danger"></span>
                     </div>
+                    
                     <div class="form-check form-check-spaced">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                        <label class="form-check-label" for="flexCheckIndeterminate">
+                        <input asp-for="RememberMe" class="form-check-input" type="checkbox">
+                        <label asp-for="RememberMe" class="form-check-label">
                             Lembrar meus dados de acesso
                         </label>
                     </div>
                 </div>
 
-
                 <div>
-                    <button id="loginButton" class="login-button-disabled" disabled>Entrar</button>
+                    <button type="submit" id="registerButton" class="login-button-disabled" disabled>Cadastrar</button>
                 </div>
-         
-
-            </div>
-
-             <hr/>
-            <div>
-                <button class="login-google mb-2"><img src="/img/button-icons/google-icon.svg" /> Continue com Google</button>
-            </div>
-            <div>
-                <button class="login-facebook"><img src="/img/button-icons/facebook-icon.svg" /> Continue com Facebook</button>
             </div>
         </form>
-        
-       
-       
+
+        <hr/>
+        <div>
+            <button class="login-google mb-2"><img src="/img/button-icons/google-icon.svg" /> Continue com Google</button>
+        </div>
+        <div>
+            <button class="login-facebook"><img src="/img/button-icons/facebook-icon.svg" /> Continue com Facebook</button>
+        </div>
     </div>
-
-
 </div>
 
 
@@ -108,16 +114,16 @@
         }
     }
     document.getElementById('termsCheckbox').addEventListener('change', function () {
-        // Get the login button
-        var loginButton = document.getElementById('loginButton');
+        // Get the register button
+        var registerButton = document.getElementById('registerButton');
 
         // Enable the button if the checkbox is checked, otherwise disable it
-        loginButton.disabled = !this.checked;
+        registerButton.disabled = !this.checked;
         if (!this.checked) {
-            loginButton.className = "login-button-disabled";
+            registerButton.className = "login-button-disabled";
         }
         else {
-            loginButton.className = "login-button";
+            registerButton.className = "login-button";
         }
     });
 
