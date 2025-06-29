@@ -4,6 +4,9 @@
     var disabled = true;
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+}
 
 <div class="main-card">
     <h1>Criar uma conta</h1>
@@ -14,40 +17,48 @@
         <form>
             <div>
                 <div class="text-area">
-                    <p style="font-weight:500;">Nome Completo</p>
+                    <p class="form-label-medium">Nome Completo</p>
                     @Html.TextBoxFor(a => a.Name, new { @class = "text-input" })
                 </div>
                 <div class="text-area">
-                    <p style="font-weight:500;"> Email</p>
+                    <p class="form-label-medium"> Email</p>
                     @Html.TextBoxFor(a => a.Email, new { @class = "text-input" })
                 </div>
                 <div class="input-group mb-2">
-                    <p style="font-weight:500;"> Senha</p>
+                    <p class="form-label-medium"> Senha</p>
                     @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password", id = "passwordField" })
                     <div class="input-group-append">
                         <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
-                            <img src class="" id="toggleIcon"></img>
+                             <img src="~/img/show-password-icon.svg" alt="Show Password" id="toggleIcon" />
                         </button>
                     </div>
                     @Html.ValidationMessageFor(a => a.Password)
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 
-                <div>
-                    <div class="mb-2"><img src="~/img/validation-icons/info.svg"/> Digite pelo menos 1 caractere minúsculo</div>
-                    <div class="mb-2"><img src="~/img/validation-icons/info.svg" /> Digite pelo menos 1 caractere MAIÚSCULO</div>
-                    <div class="mb-2"><img src="~/img/validation-icons/info.svg" /> Digite pelo menos 1 número</div>
-                    <div class="mb-2"><img src="~/img/validation-icons/info.svg" /> Tenha pelo menos 8 caracteres em sua senha</div>
+                <div class="create-account-password-validation-container">
+                    <div class="password-requirement" id="lowercase-req">
+                        <img src="~/img/validation-icons/info.svg" /> Digite pelo menos 1 caractere minúsculo
+                    </div>
+                    <div class="password-requirement" id="uppercase-req">
+                        <img src="~/img/validation-icons/info.svg" /> Digite pelo menos 1 caractere MAIÚSCULO
+                    </div>
+                    <div class="password-requirement" id="number-req">
+                        <img src="~/img/validation-icons/info.svg" /> Digite pelo menos 1 número
+                    </div>
+                    <div class="password-requirement" id="length-req">
+                        <img src="~/img/validation-icons/info.svg" /> Tenha pelo menos 8 caracteres em sua senha
+                    </div>
                 </div>
                 <hr />
                 <div>
-                    <div class="form-check" style="padding-top: 10px; padding-bottom: 10px;">
+                    <div class="form-check form-check-spaced">
                         <input class="form-check-input" type="checkbox" value="" id="termsCheckbox">
                         <label class="form-check-label" for="flexCheckIndeterminate">
                             Eu concordo com os <a href="#">termos de uso</a> e <a href="#">política de privacidade</a>
                         </label>
                     </div>
-                    <div class="form-check" style="padding-top: 10px; padding-bottom: 10px;">
+                    <div class="form-check form-check-spaced">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
                         <label class="form-check-label" for="flexCheckIndeterminate">
                             Lembrar meus dados de acesso
@@ -81,18 +92,19 @@
 
 
 <script>
+     
     function togglePassword() {
         var passwordField = document.getElementById("passwordField");
         var toggleIcon = document.getElementById("toggleIcon");
 
         if (passwordField.type === "password") {
             passwordField.type = "text";
-            toggleIcon.classList.remove("fa-eye");
-            toggleIcon.classList.add("fa-eye-slash");
+            @* toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash"); *@
         } else {
             passwordField.type = "password";
-            toggleIcon.classList.remove("fa-eye-slash");
-            toggleIcon.classList.add("fa-eye");
+            @* toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye"); *@
         }
     }
     document.getElementById('termsCheckbox').addEventListener('change', function () {
@@ -102,12 +114,50 @@
         // Enable the button if the checkbox is checked, otherwise disable it
         loginButton.disabled = !this.checked;
         if (!this.checked) {
-
             loginButton.className = "login-button-disabled";
         }
         else {
             loginButton.className = "login-button";
         }
-
     });
+
+    // Password validation functionality
+    function validatePassword() {
+        var password = document.getElementById('passwordField').value;
+        
+        // Get all requirement elements
+        var lowercaseReq = document.getElementById('lowercase-req');
+        var uppercaseReq = document.getElementById('uppercase-req');
+        var numberReq = document.getElementById('number-req');
+        var lengthReq = document.getElementById('length-req');
+        
+        // Check each requirement
+        var hasLowercase = /[a-z]/.test(password);
+        var hasUppercase = /[A-Z]/.test(password);
+        var hasNumber = /\d/.test(password);
+        var hasMinLength = password.length >= 8;
+        
+        // Update visual feedback
+        updateRequirement(lowercaseReq, hasLowercase);
+        updateRequirement(uppercaseReq, hasUppercase);
+        updateRequirement(numberReq, hasNumber);
+        updateRequirement(lengthReq, hasMinLength);
+        
+        // Return true if all requirements are met
+        return hasLowercase && hasUppercase && hasNumber && hasMinLength;
+    }
+    
+    function updateRequirement(element, isValid) {
+        if (isValid) {
+            element.classList.remove('invalid');
+            element.classList.add('valid');
+        } else {
+            element.classList.remove('valid');
+            element.classList.add('invalid');
+        }
+    }
+    
+    // Add event listener to password field
+    document.getElementById('passwordField').addEventListener('input', validatePassword);
+    document.getElementById('passwordField').addEventListener('keyup', validatePassword);
 </script>

@@ -1,0 +1,495 @@
+/* ==============================================
+   AUTHENTICATION PAGES STYLES (LOGIN/REGISTER)
+   ============================================== */
+
+/* ==============================================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   ============================================== */
+:root {
+    --primary-color: #590D82;
+    --primary-color-light: #EEE7F3;
+    --background-white: #FFFFFF;
+    --border-color: #E7E7E7;
+    --border-color-light: #EFF0F7;
+    --text-color-dark: #333333;
+    --text-color-muted: #666666;
+    --shadow-color: rgba(112, 144, 176, 0.15);
+    --social-shadow: rgba(19, 18, 66, 0.07);
+    --border-radius-card: 24px;
+    --border-radius-button: 30px;
+    --border-radius-input: 30px;
+    --border-radius-social: 46px;
+    --spacing-small: 10px;
+    --spacing-medium: 16px;
+    --spacing-large: 20px;
+    --spacing-xl: 27px;
+    --spacing-xxl: 32px;
+    --spacing-xxxl: 49px;
+    --spacing-huge: 56px;
+    --button-width: 448px;
+    --button-height: 56px;
+    --card-width: 546px;
+    --input-width: 448px;
+    --input-height: 56px;
+    --transition-smooth: all 0.3s ease;
+}
+
+/* ==============================================
+   LAYOUT CONTAINERS
+   ============================================== */
+.auth-main-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: var(--spacing-large);
+    text-align: center;
+}
+
+.auth-main-card h1 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-medium);
+    font-weight: 700;
+}
+
+.auth-main-card p {
+    color: var(--text-color-muted);
+    margin-bottom: var(--spacing-xl);
+    line-height: 1.6;
+}
+
+/* ==============================================
+   LOGIN SPECIFIC STYLES - MAIN CARD
+   ============================================== */
+.main-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: var(--spacing-large);
+    text-align: center;
+}
+
+.main-card h1 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-medium);
+    font-weight: 700;
+}
+
+.main-card p {
+    color: var(--text-color-muted);
+    margin-bottom: var(--spacing-xl);
+    line-height: 1.6;
+}
+
+/* ==============================================
+   LOGIN CARD COMPONENTS
+   ============================================== */
+.login-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-huge) var(--spacing-xxxl);
+    gap: var(--spacing-xl);
+    width: 100%;
+    max-width: var(--card-width);
+    height: auto;
+    background: var(--background-white);
+    box-shadow: 3px 7px 30px var(--shadow-color);
+    border-radius: var(--border-radius-card);
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    transition: var(--transition-smooth);
+}
+
+.form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-medium);
+}
+
+.social-buttons-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.login-card:hover {
+    box-shadow: 3px 7px 40px rgba(112, 144, 176, 0.25);
+    transform: translateY(-5px);
+}
+
+/* ==============================================
+   LOGIN FORM COMPONENTS
+   ============================================== */
+.text-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin-bottom: var(--spacing-small);
+}
+
+.text-area p {
+    color: var(--text-color-dark);
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.text-input {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--spacing-medium) var(--spacing-large);
+    gap: var(--spacing-small);
+    width: 100%;
+    height: var(--input-height);
+    background: var(--background-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-input);
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+    font-size: 16px;
+    transition: var(--transition-smooth);
+}
+
+.text-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(89, 13, 130, 0.1);
+}
+
+.text-input:hover {
+    border-color: var(--primary-color);
+}
+
+/* ==============================================
+   PASSWORD FIELD
+   ============================================== */
+.password-container {
+    width: 100%;
+    margin-bottom: var(--spacing-medium);
+}
+
+.password-container p {
+    color: var(--text-color-dark);
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 50px;
+    /* Space for the toggle button */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password:hover {
+    background-color: rgba(89, 13, 130, 0.1);
+}
+
+.toggle-password img {
+    width: 20px;
+    height: 20px;
+    transition: var(--transition-smooth);
+}
+
+.toggle-password:hover img {
+    transform: scale(1.1);
+}
+
+/* ==============================================
+   PASSWORD VALIDATION STYLES
+   ============================================== */
+.create-account-password-validation-container {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    align-items: start;
+}
+
+.password-requirement {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    color: #666666;
+}
+
+.password-requirement img {
+    width: 16px;
+    height: 16px;
+    transition: all 0.3s ease;
+}
+
+.password-requirement.valid {
+    color: #28a745;
+}
+
+.password-requirement.valid img {
+    filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1552%) hue-rotate(95deg) brightness(96%) contrast(87%);
+}
+
+.password-requirement.invalid {
+    color: #666666;
+}
+
+/* ==============================================
+   LOGIN BUTTON STYLES
+   ============================================== */
+.login-button {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-large) var(--spacing-xxl);
+    gap: var(--spacing-small);
+    width: 100%;
+    height: var(--button-height);
+    background: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius-button);
+    flex: none;
+    order: 3;
+    align-self: stretch;
+    flex-grow: 0;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.login-button:hover {
+    background: #6D0F9A;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(89, 13, 130, 0.4);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+/* Disabled Login Button */
+.login-button-disabled {
+    color: #999999;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-large) var(--spacing-xxl);
+    gap: var(--spacing-small);
+    width: 100%;
+    height: var(--button-height);
+    background: #E0E0E0;
+    border: none;
+    border-radius: var(--border-radius-button);
+    flex: none;
+    order: 3;
+    align-self: stretch;
+    flex-grow: 0;
+    cursor: not-allowed;
+    transition: var(--transition-smooth);
+}
+
+.login-button-disabled:hover {
+    background: #E0E0E0;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Social Login Buttons */
+.login-google,
+.login-facebook {
+    font-size: 18px;
+    font-weight: 500;
+    width: 100%;
+    min-width: 0;
+    height: var(--button-height);
+    background: var(--background-white);
+    border: 1px solid var(--border-color-light);
+    box-shadow: 0px 2px 6px var(--social-shadow);
+    border-radius: var(--border-radius-social);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-small);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    margin-bottom: var(--spacing-medium);
+    box-sizing: border-box;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.login-google:hover,
+.login-facebook:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0px 4px 12px rgba(19, 18, 66, 0.15);
+    transform: translateY(-2px);
+}
+
+.login-google img,
+.login-facebook img {
+    width: 24px;
+    height: 24px;
+    transition: var(--transition-smooth);
+}
+
+.login-google:hover img,
+.login-facebook:hover img {
+    transform: scale(1.1);
+}
+
+/* ==============================================
+   LOGIN FORM UTILITIES
+   ============================================== */
+.form-check {
+    padding-top: var(--spacing-small);
+    padding-bottom: var(--spacing-small);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-check-input {
+    margin: 0;
+    accent-color: var(--primary-color);
+}
+
+.form-check-label {
+    color: var(--text-color-dark);
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.esquecer-criar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: var(--spacing-medium);
+}
+
+.esquecer-criar div {
+    color: var(--primary-color);
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    justify-content: center;
+    text-decoration: underline;
+}
+
+.esquecer-criar div:hover {
+    color: #6D0F9A;
+    transform: translateY(-1px);
+}
+
+/* ==============================================
+   FORM UTILITY CLASSES
+   ============================================== */
+.form-check-spaced {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.form-label-medium {
+    font-weight: 500 !important;
+}
+
+/* ==============================================
+   RESPONSIVE DESIGN
+   ============================================== */
+@media (max-width: 768px) {
+    .main-card {
+        padding: var(--spacing-medium);
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 400px;
+        padding: var(--spacing-xl) var(--spacing-large);
+    }
+
+    .text-area,
+    .text-input,
+    .login-button,
+    .login-google,
+    .login-facebook {
+        width: 100%;
+    }
+
+    .password-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-card h1 {
+        font-size: 24px;
+    }
+
+    .login-card {
+        padding: var(--spacing-large);
+        max-width: 320px;
+    }
+
+    .login-button,
+    .login-google,
+    .login-facebook {
+        font-size: 16px;
+        height: 48px;
+        padding: 14px 24px;
+    }
+
+    .esquecer-criar div {
+        font-size: 12px;
+    }
+}
+
+/* ==============================================
+   EXISTING AUTH STYLES CONTINUE BELOW
+   ============================================== */

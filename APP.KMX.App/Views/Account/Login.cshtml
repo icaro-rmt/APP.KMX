@@ -3,12 +3,15 @@
     ViewData["Title"] = "Login";
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+}
 
-<div class="main-card">
+<div class="auth-main-card">
     <h1>Faça login na sua conta</h1>
     <p>Por favor insira suas informações nos campos abaixo para a plataforma </p>
     <div class="login-card">
-        <div>
+        <div class="form-container">
             <div class="text-area">
                 <p> Email</p>
                 @Html.TextBoxFor(a => a.Email, new { @class = "text-input" })
@@ -17,17 +20,18 @@
                 <p>Senha</p>
                 <div class="password-wrapper">
                     @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password", id = "passwordField" })
+                    
                     <button type="button" id="togglePassword" class="toggle-password">
                         <img src="~/img/show-password-icon.svg" alt="Show Password" id="toggleIcon" />
                     </button>
                 </div>
             </div>
-            @* <div >
+            @* <div > 
                 <p> Senha</p>
                 @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password" })
             </div> *@
 
-            <div class="form-check" style="padding-top: 10px; padding-bottom: 10px;">
+            <div class="form-check form-check-spaced">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
                 <label class="form-check-label" for="flexCheckIndeterminate">
                     Lembrar meus dados de acesso
@@ -50,42 +54,18 @@
             </div>
         </div>
 
-        <div>
-            <button class="login-google" > <img src="/img/button-icons/google-icon.svg"/> Continue com Google</button>
+        <div class="social-buttons-container">
+            <button class="login-google"><img src="/img/button-icons/google-icon.svg"/> Continue com Google</button>
         </div>
-        <div>
-            <button class="login-facebook"> <img src="/img/button-icons/facebook-icon.svg" /> Continue com Facebook</button>
+        <div class="social-buttons-container">
+            <button class="login-facebook"><img src="/img/button-icons/facebook-icon.svg" /> Continue com Facebook</button>
         </div>
     </div>
 </div>
 
 
 
-<style>
-    .password-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
 
-        .password-wrapper input {
-            width: 100%;
-            padding-right: 40px; /* Space for the icon */
-        }
-
-    .toggle-password {
-        position: absolute;
-        right: 10px;
-        background: none;
-        border: none;
-        cursor: pointer;
-    }
-
-        .toggle-password img {
-            width: 20px;
-            height: 20px;
-        }
-</style>
 
 <script>
     document.getElementById("togglePassword").addEventListener("click", function () {

@@ -1,10 +1,15 @@
-﻿@model ConversionButtonModel
+﻿@using APP.KMX.App.Models
+@model ConversionButtonModel
 
 @{
     ViewData["Title"] = "Converter Arquivo";
 }
 
-<div class="main-card">
+@section Styles {
+    <link rel="stylesheet" href="~/css/file-conversion.css" asp-append-version="true" />
+}
+
+<div class="file-conversion-main-card">
     <div class="main-card">
         <div>
             <h1>
@@ -32,57 +37,6 @@
         </div>
     </div>
 </div>
-
-
-<style>
-    .main-card {
-        display: flex;
-        flex-direction:column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
-    .upload-card{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 24px;
-        gap: 16px;
-        width: 550px;
-        height: 345px;
-        background: #FFFFFF;
-        box-shadow: 3px 7px 30px rgba(112, 144, 176, 0.15);
-        border-radius: 24px;
-        flex: none;
-        order: 1;
-        flex-grow: 0;
-    }
-
-    .drag-n-drop {
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 24px;
-        gap: 12px;
-        width: 502px;
-        height: 176px;
-        background: #FFFFFF;
-        border: 1px dashed #590D82;
-        border-radius: 8px;
-        flex: none;
-        order: 1;
-        align-self: stretch;
-        flex-grow: 0;
-    }
-    .dragging{
-        border-color: #3A0E66;
-        background-color: #f3f0ff;
-    }
-
-</style>
 
 <script>
     const dropArea = document.getElementById('drag-drop');

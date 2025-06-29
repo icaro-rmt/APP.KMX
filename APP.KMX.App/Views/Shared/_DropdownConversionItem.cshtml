@@ -1,0 +1,20 @@
+@using APP.KMX.App.Models
+@model ConversionButtonModel
+
+<li class="dropdown-item-wrapper">
+    <form asp-action="FileConversion" asp-controller="Home" method="post" class="dropdown-conversion-form">
+        <input type="hidden" name="Title" value="@Model.Title" />
+        <input type="hidden" name="IconClass" value="@Model.IconClass" />
+        <input type="hidden" name="Link" value="@Model.Link" />
+        <input type="hidden" name="ConvertFrom" value="@Model.ConvertFrom" />
+        <input type="hidden" name="ConvertTo" value="@Model.ConvertTo" />
+        <button type="submit" class="dropdown-item conversion-dropdown-item">
+            <div class="dropdown-item-content">
+                <img src="~/img/button-icons/@Model.IconClass" class="file-type-icon" alt="@Model.ConvertFrom to @Model.ConvertTo" />
+                <span class="conversion-text">@Model.Title</span>
+                <img src="~/img/button-icons/arrow-link.svg" class="arrow-icon" alt="Convert" />
+            </div>
+        </button>
+    </form>
+</li>
+
