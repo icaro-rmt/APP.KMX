@@ -236,11 +236,42 @@
     transform: scale(1.1);
 }
 
+/* ==============================================
+   PASSWORD VALIDATION STYLES
+   ============================================== */
 .create-account-password-validation-container {
     display: flex;
     justify-content: left;
     flex-direction: column;
     align-items: start;
+}
+
+.password-requirement {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    color: #666666;
+}
+
+.password-requirement img {
+    width: 16px;
+    height: 16px;
+    transition: all 0.3s ease;
+}
+
+.password-requirement.valid {
+    color: #28a745;
+}
+
+.password-requirement.valid img {
+    filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1552%) hue-rotate(95deg) brightness(96%) contrast(87%);
+}
+
+.password-requirement.invalid {
+    color: #666666;
 }
 
 /* ==============================================
