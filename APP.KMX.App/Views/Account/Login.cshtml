@@ -1,4 +1,4 @@
-﻿@model UserModel
+﻿@model LoginModel
 @{
     ViewData["Title"] = "Login";
 }
@@ -9,50 +9,50 @@
 
 <div class="auth-main-card">
     <h1>Faça login na sua conta</h1>
-    <p>Por favor insira suas informações nos campos abaixo para a plataforma </p>
+    <p>Por favor insira suas informações nos campos abaixo para a plataforma</p>
+    
     <div class="login-card">
-        <div class="form-container">
-            <div class="text-area">
-                <p> Email</p>
-                @Html.TextBoxFor(a => a.Email, new { @class = "text-input" })
-            </div>
-            <div class="password-container">
-                <p>Senha</p>
-                <div class="password-wrapper">
-                    @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password", id = "passwordField" })
-                    
-                    <button type="button" id="togglePassword" class="toggle-password">
-                        <img src="~/img/show-password-icon.svg" alt="Show Password" id="toggleIcon" />
-                    </button>
+        <form asp-action="Login" method="post">
+            @Html.AntiForgeryToken()
+            <input asp-for="@ViewData["ReturnUrl"]" type="hidden" />
+            
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-container">
+                <div class="text-area">
+                    <p>Email</p>
+                    <input asp-for="Email" class="text-input" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                
+                <div class="password-container">
+                    <p>Senha</p>
+                    <div class="password-wrapper">
+                        <input asp-for="Password" class="text-input password" type="password" id="passwordField" />
+                        <button type="button" id="togglePassword" class="toggle-password">
+                            <img src="~/img/show-password-icon.svg" alt="Show Password" id="toggleIcon" />
+                        </button>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-check form-check-spaced">
+                    <input asp-for="RememberMe" class="form-check-input" type="checkbox" />
+                    <label asp-for="RememberMe" class="form-check-label">
+                        Lembrar meus dados de acesso
+                    </label>
+                </div>
+
+                <div>
+                    <button type="submit" class="login-button">Entrar</button>
                 </div>
             </div>
-            @* <div > 
-                <p> Senha</p>
-                @Html.TextBoxFor(a => a.Password, new { @class = "text-input password", type = "password" })
-            </div> *@
-
-            <div class="form-check form-check-spaced">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                <label class="form-check-label" for="flexCheckIndeterminate">
-                    Lembrar meus dados de acesso
-                </label>
-            </div>
-
-
-            <div>
-                <button class="login-button">Entrar</button>
-            </div>
-
-        </div>
-        <div class="esquecer-criar justify-content-between">
-            <div class="esquecer-criar">
-                <div>Esqueceu sua Senha?</div>
-            </div>
             
-            <div class="esquecer-criar">
-                <div>Criar uma conta</div>
+            <div class="esquecer-criar justify-content-between">
+                <div>Esqueceu sua Senha?</div>
+                <div><a asp-action="RegisterPage">Criar uma conta</a></div>
             </div>
-        </div>
+        </form>
 
         <div class="social-buttons-container">
             <button class="login-google"><img src="/img/button-icons/google-icon.svg"/> Continue com Google</button>
@@ -62,11 +62,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 <script>
     document.getElementById("togglePassword").addEventListener("click", function () {
         var passwordField = document.getElementById("passwordField");
@@ -74,10 +69,10 @@
 
         if (passwordField.type === "password") {
             passwordField.type = "text";
-            toggleIcon.src = "/img/show-password-icon.svg"; // Change to 'hide' icon
+            toggleIcon.src = "/img/hide-password-icon.svg";
         } else {
             passwordField.type = "password";
-            toggleIcon.src = "/img/show-password-icon.svg"; // Change back to 'show' icon
+            toggleIcon.src = "/img/show-password-icon.svg";
         }
     });
 </script>

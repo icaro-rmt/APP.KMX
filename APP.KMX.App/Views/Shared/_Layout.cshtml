@@ -58,12 +58,27 @@
                                     <partial name="_DropdownConversionItem" model="card" />
                                 }
                             </ul>
-                        <li class="nav-item p-2">
-                            <a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link">Entrar</a>
                         </li>
-                        <li class="nav-item p-2">
-                            <a asp-area="" asp-controller="Account" asp-action="RegisterPage" class="register-button register-text">Cadastre-se</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item p-2">
+                                <span class="navbar-text">Olá, @User.Identity.Name</span>
+                            </li>
+                            <li class="nav-item p-2">
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-link nav-link text-white p-0">Sair</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item p-2">
+                                <a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link">Entrar</a>
+                            </li>
+                            <li class="nav-item p-2">
+                                <a asp-area="" asp-controller="Account" asp-action="RegisterPage" class="register-button register-text">Cadastre-se</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
